@@ -34,10 +34,10 @@
 | P2_5 | L298N_IN1   | 0       |          |
 | P2_6 | PX85_GND    | 0       | 音乐开关 |
 | P2_7 | PX85_C      | 0       | 音乐更换 |
-| P1.4 | PS2_D1/DATA | default |          |
-| P1.5 | PS2_D0/CMD  | default |          |
-| P1.6 | PS2_CS      | default |          |
-| P1.7 | PS2_CLK     | default |          |
+| P1_4 | PS2_D1/DATA | default |          |
+| P1_5 | PS2_D0/CMD  | default |          |
+| P1_6 | PS2_CS      | default |          |
+| P1_7 | PS2_CLK     | default |          |
 
 
 
