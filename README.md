@@ -20,9 +20,7 @@
 
 ![](hardware/integrate_archetecture.png)
 
-详细参照：
-
-[硬件设计说明]: (hardware/design.md)
+详细参照：[硬件设计说明](hardware/design.md)
 
 
 
@@ -30,15 +28,15 @@
 
 ![](software/class_design.png)
 
-详细参照：
-
-[软件设计说明和代码]: (software/design.md)
+详细参照：[软件设计说明和代码](software/design.md)
 
 
 
 ## 成品效果
 
 
+
+敬请期待...
 
 
 
