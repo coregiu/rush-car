@@ -55,11 +55,12 @@ OS： Ubuntu 20.04
 
 开发IDE： VSCODE
 
-编译软件： sdcc/packihx
+编译软件： sdcc/packihx, cmake
 
 ubuntu下安装： sudo apt-get install sdcc
 
 烧录软件：stcflash
+
 ubuntu下安装： 从社区下载到本地，社区地址：https://github.com/laborer/stcflash
 
 将stcflash.py文件解压到/usr/local/bin。 并去掉后缀名。
@@ -79,16 +80,28 @@ ubuntu下安装： 从社区下载到本地，社区地址：https://github.com/
 #### 编译烧录：
 
 第一步，编译：
+
+$cmake .
+
+如果个人娱乐不想写cmake文件，就下面这样
+
 $sudo sdcc led_basic.c -o led_basic.ihx
 
+
+
 第二步，转换成可烧录的hex文件：
-$packihx led_basic.ihx > led_basic.hex
+
+$packihx RUCAR.ihx > RUCAR.hex
 
 第三步，烧录文件到MCU：
-$sudo stcflash led_basic.hex 
+
+$sudo stcflash RUCAR.hex 
+
+
 
 此命令会自动寻找USB口发命令。如果有多个USB口，需要指定相应端口。
-$sudo stcflash led_basic.hex --port /dev/ttyUSB0
+
+$sudo stcflash RUCAR.hex --port /dev/ttyUSB0
 
 
 
