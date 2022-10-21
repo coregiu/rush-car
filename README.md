@@ -1,5 +1,5 @@
 # RUCAR
-    利用51单片机、L298N驱动、PS2手柄和DIV小车实现的摇控音乐闪灯小车。
+    利用51单片机、L298N驱动、PS2手柄和DIY小车实现的摇控音乐和LED灯的遥控小车。
 
 ## 功能说明
 #### 遥控小车行驶
@@ -52,23 +52,29 @@ https://staruml.io/download
 
 #### 软件开发相关软件
 OS： Ubuntu 20.04
+
 开发IDE： VSCODE
+
 编译软件： sdcc/packihx
+
 ubuntu下安装： sudo apt-get install sdcc
 
 烧录软件：stcflash
 ubuntu下安装： 从社区下载到本地，社区地址：https://github.com/laborer/stcflash
+
 将stcflash.py文件解压到/usr/local/bin。 并去掉后缀名。
+
 依赖： python3, python-pip3, python serial
 
 安装python serial: https://www.geeksforgeeks.org/how-to-install-python-serial-package-on-linux/
 
 如果执行: stcflash报错： usr/bin/env: ‘python’: No such file or directory
+
 执行以下命令解决： sudo ln -s /usr/bin/python3 /usr/bin/python
 
 串口调试工具： comtool
+
 安装： sudo pipe3 install comtool
-运行： sudo comtool
 
 #### 编译烧录：
 

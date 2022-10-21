@@ -18,28 +18,28 @@
 使用51单片机（STC89C52RC）作为控制中心，其中P0口控制LED灯，与自带LED灯反向； P2.0-P2.5 为电机控制口，P2.6-P2.7 控制音乐开关和更换。P1.4-P1.7为PS2通信口。
 晶振频率：11.0592
 
-| GPIO | 连接口      | 初始值  | 说明     |
-| ---- | ----------- | ------- | -------- |
-| P0_0 | LED1        | 1       |          |
-| P0_1 | LED2        | 1       |          |
-| P0_2 | LED3        | 1       |          |
-| P0_3 | LED4        | 1       |          |
-| P0_4 | LED5        | 1       |          |
-| P0_5 | LED6        | 1       |          |
-| P0_6 | LED7        | 1       |          |
-| P0_7 | LED8        | 1       |          |
-| P2_0 | L298N_EnB   | 0       |          |
-| P2_1 | L298N_IN4   | 0       |          |
-| P2_2 | L298N_IN3   | 0       |          |
-| P2_3 | L298N_EnA   | 0       |          |
-| P2_4 | L298N_IN2   | 0       |          |
-| P2_5 | L298N_IN1   | 0       |          |
-| P2_6 | PX85_GND    | 0       | 音乐开关 |
-| P2_7 | PX85_C      | 0       | 音乐更换 |
-| P1_4 | PS2_D1/DATA | default |          |
-| P1_5 | PS2_D0/CMD  | default |          |
-| P1_6 | PS2_CS      | default |          |
-| P1_7 | PS2_CLK     | default |          |
+| GPIO | 连接口            | 初始值  | 说明     |
+| ---- | ----------------- | ------- | -------- |
+| P0_0 | LED1              | 1       |          |
+| P0_1 | LED2              | 1       |          |
+| P0_2 | LED3              | 1       |          |
+| P0_3 | LED4              | 1       |          |
+| P0_4 | LED5              | 1       |          |
+| P0_5 | LED6              | 1       |          |
+| P0_6 | LED7              | 1       |          |
+| P0_7 | LED8              | 1       |          |
+| P2_0 | L298N_EnB         | 0       |          |
+| P2_1 | L298N_IN4         | 0       |          |
+| P2_2 | L298N_IN3         | 0       |          |
+| P2_3 | L298N_EnA         | 0       |          |
+| P2_4 | L298N_IN2         | 0       |          |
+| P2_5 | L298N_IN1         | 0       |          |
+| P2_6 | FLM038A-SOP8_PLAY | 0       | 音乐开关 |
+| P2_7 | FLM038A-SOP8_NEXT | 0       | 音乐更换 |
+| P1_4 | PS2_D1/DATA       | default |          |
+| P1_5 | PS2_D0/CMD        | default |          |
+| P1_6 | PS2_CS            | default |          |
+| P1_7 | PS2_CLK           | default |          |
 
 
 
@@ -72,9 +72,11 @@
 
 #### 音乐模块
 
-<img src="modules/px85.png" style="zoom:60%;" />
+<img src="modules/flm038-sop8-body.jpg" style="zoom:70%;" />
 
-使用PX85音乐芯片，通过P2_6, P2_7控制音乐开关和更换。 其中开关和更换使用两个三个极管开关电路控制。都是高电平时开关打开。
+<img src="modules/flm038-sop8-board.jpg" style="zoom:70%;" />
+
+使用FLM038A-SOP8音乐芯片，通过P2_6, P2_7控制音乐开关和更换。 其中开关和更换使用两个PWM控制模块，如下图。都是高电平时开关打开。
 
 
 
