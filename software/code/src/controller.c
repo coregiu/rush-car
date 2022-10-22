@@ -10,34 +10,36 @@
 
 #include <controller.h>
 
-#define MODULE_NUMBER 3
-
-struct module_command_receiver modules[MODULE_NUMBER];
-
+/**
+ * init uart and all receive modules
+ * 
+ */
 void init_modules()
 {
     uart_init();
-    // for (int i = 0; i < MODULE_NUMBER; i++)
-    // {
-    //   modules[i].init();
-    // }
+
     motor_driver.init();
     led_group.init();
     music_switch.init();
 }
 
+/**
+ * receive ps2 data, convert to commands,
+ * and notify modules to execute commands;
+ * 
+ */
 void receive_cmd()
 {
     uint *commands = read_ps2();
     notify_all(commands);
 }
 
+/**
+ * notify modules to execute the commands.
+ * 
+ */
 void notify_all(uint *car_cmds)
 {
-    // for (int i = 0; i < MODULE_NUMBER; i++)
-    // {
-    //   modules[i].update_state(car_cmds);
-    // }
     motor_driver.update_state(car_cmds);
     led_group.update_state(car_cmds);
     music_switch.update_state(car_cmds);

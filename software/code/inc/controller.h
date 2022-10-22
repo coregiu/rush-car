@@ -18,10 +18,23 @@
 #include <motor_driver.h>
 #include <command_receiver.h>
 
+/**
+ * init uart and all receive modules
+ * 
+ */
 void init_modules();
 
+/**
+ * receive ps2 data, convert to commands,
+ * and notify modules to execute commands;
+ * 
+ */
 void receive_cmd();
 
+/**
+ * notify modules to execute the commands.
+ * 
+ */
 void notify_all(uint *car_cmds);
 
 #endif

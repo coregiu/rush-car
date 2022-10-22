@@ -29,8 +29,10 @@
 
 struct module_command_receiver
 {
-  void (*init)();
-  void (*update_state)(int *car_cmds);
+	void (*init)();
+	void (*update_state)(int *car_cmds);
 };
+
+extern void delay_time_ms(uint mil_sec);
 
 #endif

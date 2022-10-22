@@ -14,38 +14,34 @@
   ******************************************************************************
 **/
 #include <motor_driver.h>
+#include <mcs51/8051.h>
 
 void init_motor_switch()
 {
-
 }
 
 void move()
 {
-
 }
 
 void back()
 {
-
 }
 
 void turn_left()
 {
-
 }
 
 void turn_right()
 {
-
 }
 
 void update_motor_state(int *car_cmds)
 {
-  for(char i = 0; i < COMMANDS_LENGTH; i++)
-  {
-    car_cmds[i];
-  }
+    for (char i = 0; i < COMMANDS_LENGTH; i++)
+    {
+        car_cmds[i];
+    }
 }
 
 const struct module_command_receiver motor_driver = {init_motor_switch, update_motor_state};

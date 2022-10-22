@@ -39,11 +39,6 @@ out[6] 00——7F——FF 右摇杆从上到下
 #include <stdio.h>
 #include "command_receiver.h"
 
-// struct ps2_receiver
-// {
-//   /* data */
-// };
-
 void uart_init();
 
 uint* read_ps2();

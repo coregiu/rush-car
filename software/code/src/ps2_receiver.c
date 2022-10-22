@@ -11,7 +11,7 @@
 #include <ps2_receiver.h>
 
 
-#define Fosc 11059200 //晶振频率
+#define Fosc 11059200 //Crystal frequency
 #define _nop_() __asm NOP __endasm
 
 #define DATA P1_4  //D0
@@ -19,9 +19,7 @@
 #define ATT  P1_6  //CS
 #define CLK  P1_7  //CLK
 
-#define COMMANDS_LENGTH 8
-
-/********手柄定义变量*********/
+/********vars of ps2*********/
 const uchar scan[9] = {0x01, 0x42, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 
 const uint command_map[COMMANDS_LENGTH][3] = {{3, 0xEF, COMMAND_LEFT_TOP}, 
@@ -34,6 +32,7 @@ const uint command_map[COMMANDS_LENGTH][3] = {{3, 0xEF, COMMAND_LEFT_TOP},
 											{4, 0xDF, COMMAND_RIGHT_RIGHT}};
 
 uchar out[9];
+
 /********************************************************************
 * name : void uart_init()
 * func : 串口设置
@@ -55,9 +54,9 @@ void uart_init()
 
 /********************************************************************
 * name : uart_sendata(uchar n)
-* func : 发送字节
-* in   : 有
-* out  : 无
+* func : send data to ps2
+* in   : uchar
+* out  : void
 ***********************************************************************/
 void uart_sendata(uchar n)
 {
@@ -66,7 +65,7 @@ void uart_sendata(uchar n)
 	SBUF = n;
 	while (!TI)
 	{
-		//如果发送完毕，硬件会置位TI
+		//will rest TI after send.
 	}
 	TI = 0;
 	ES = 1;
@@ -81,11 +80,11 @@ void delay(uint n) //delay(x)=(2.5+x)us;
 	}	
 }
 
-uchar scanout(uchar command) //手柄发送子程序
+uchar scanout(uchar command)
 {
 	uchar i, j = 1;
 	uchar res = 0;
-	for (i = 0; i <= 7; i++) //逐位接收
+	for (i = 0; i <= 7; i++) //receive by bit
 	{
 		if (command & 0x01)
 			CMND = 1;
