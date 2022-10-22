@@ -1,5 +1,5 @@
 # RUCAR
-    利用51单片机、L298N驱动、PS2手柄和DIY小车实现的摇控音乐和LED灯的遥控小车。
+    利用51单片机、L298N电机驱动、PS2手柄、音乐芯片、PWM模块和小车底盘DIY实现的摇控音乐和LED灯的遥控小车。
 
 ## 功能说明
 #### 遥控小车行驶
@@ -9,8 +9,8 @@
 可通过PS2控制轩载音乐播放，音乐更换。
 
 #### 遥控LED灯光效果切换
-可通过PS2控制小车顶LED灯光变换。
-灯光效果有常亮、跑马灯、间隔闪烁、互切、关闭等效果。
+可通过PS2控制小车顶LED灯光开关和切换。
+灯光效果可以有常亮、间隔闪烁等效果。
 
 
 
@@ -80,30 +80,35 @@ ubuntu下安装： 从社区下载到本地，社区地址：https://github.com/
 #### 编译烧录：
 
 第一步，编译：
-
-$cmake .
+```shell
+$cd {work_path}/rucar/software/code
+$mkdir build
+$cd build
+$cmake ..
+$make
+$ls src
+```
 
 如果个人娱乐不想写cmake文件，就下面这样
-
+```shell
 $sudo sdcc led_basic.c -o led_basic.ihx
-
+```
 
 
 第二步，转换成可烧录的hex文件：
-
+```shell
 $packihx RUCAR.ihx > RUCAR.hex
-
+```
 第三步，烧录文件到MCU：
-
+```shell
 $sudo stcflash RUCAR.hex 
-
+```
 
 
 此命令会自动寻找USB口发命令。如果有多个USB口，需要指定相应端口。
-
+```shell
 $sudo stcflash RUCAR.hex --port /dev/ttyUSB0
-
-
+```
 
 #### PS2通讯说明：
 购买PS2后老板都会发教程和代码的。
