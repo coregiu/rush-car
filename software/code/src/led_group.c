@@ -4,18 +4,9 @@
   * the switch of leds
   * author: coregiu
   * 
-  * Command:
-  * change led type command: right right and right down.
-  * 
-  * The controller of bits:
-  * LED_1: P0_0
-  * LED_2: P0_1
-  * LED_3: P0_2
-  * LED_4: P0_3
-  * LED_5: P0_4
-  * LED_6: P0_5
-  * LED_7: P0_6
-  * LED_8: P0_7
+  * The controller of bits: P1_2
+  * The command of LED: RIGHT_LEFT and RIGHT_DOWN
+  * The monitor of this command: P0_6  P0_6
   * 
   ******************************************************************************
 **/
@@ -25,21 +16,28 @@
 
 void init_led_group()
 {
-    // all leds light on
-    P0 = 0;
+    // leds light on
+    LED_ABOVE_CAR = 1;
 }
 
 void change_led_type()
 {
+    LED_ABOVE_CAR = !LED_ABOVE_CAR;
 }
 
 void update_led_state(int *car_cmds)
 {
     for (char i = 0; i < COMMANDS_LENGTH; i++)
     {
-        if (car_cmds[i] == COMMAND_RIGHT_RIGHT || car_cmds[i] == COMMAND_RIGHT_DOWN)
+        if (car_cmds[i] == COMMAND_RIGHT_LEFT)
         {
+            LED_RIGHT_LEFT = !LED_RIGHT_LEFT;
             change_led_type();
+        } else if (car_cmds[i] == COMMAND_RIGHT_DOWN) 
+        {
+            LED_RIGHT_DOWN = !LED_RIGHT_DOWN;
+            change_led_type();
+
         }
     }
 }
