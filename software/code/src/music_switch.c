@@ -45,7 +45,8 @@ void update_music_state(int *car_cmds)
         {
             LED_RIGHT_TOP = !LED_RIGHT_TOP;
             play_music();
-        } else if (car_cmds[i] == COMMAND_RIGHT_RIGHT) 
+        }
+        else if (car_cmds[i] == COMMAND_RIGHT_RIGHT) 
         {
             LED_RIGHT_RIGHT = !LED_RIGHT_RIGHT;
             next_music();

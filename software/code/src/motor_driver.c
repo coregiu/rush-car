@@ -4,6 +4,61 @@
   * the switch of motor
   * author: coregiu
   * 
+  * MOVE command:
+  *     key: LEFT_TOP
+  *     monitor led: P0_0
+  *     gpio:
+  *         LEFT_EN = 1
+  *         LEFT_MV = 1
+  *         LEFT_BK = 0
+  *         RIGHT_EN = 1
+  *         RIGHT_MV = 1
+  *         RIGHT_BK = 0
+  * 
+  * BACK command:
+  *     key: LEFT_DOWN
+  *     monitor led: P0_1
+  *     gpio:
+  *         LEFT_EN = 1
+  *         LEFT_MV = 0
+  *         LEFT_BK = 1
+  *         RIGHT_EN = 1
+  *         RIGHT_MV = 0
+  *         RIGHT_BK = 1
+  * 
+  * TURN LEFT command:
+  *     key: LEFT_LEFT
+  *     monitor led: P0_2
+  *     gpio:
+  *         LEFT_EN = 0
+  *         LEFT_MV = 0
+  *         LEFT_BK = 0
+  *         RIGHT_EN = 1
+  *         RIGHT_MV = 1
+  *         RIGHT_BK = 0
+  * 
+  * TURN RIGHT command:
+  *     key: LEFT_RIGHT
+  *     monitor led: P0_3
+  *     gpio:
+  *         LEFT_EN = 1
+  *         LEFT_MV = 1
+  *         LEFT_BK = 0
+  *         RIGHT_EN = 0
+  *         RIGHT_MV = 0
+  *         RIGHT_BK = 0
+  * 
+  * STOP command:
+  *     key: RIGHT_DOWN
+  *     monitor led: P0_7
+  *     gpio:
+  *         LEFT_EN = 0
+  *         LEFT_MV = 0
+  *         LEFT_BK = 0
+  *         RIGHT_EN = 0
+  *         RIGHT_MV = 0
+  *         RIGHT_BK = 0
+  * 
   * P2_0 : LEFT_EN   L298N_EnB
   * P2_1 : LEFT_MV   L298N_IN4
   * P2_2 : LEFT_BK   L298N_IN3
@@ -16,31 +71,90 @@
 #include <motor_driver.h>
 #include <mcs51/8051.h>
 
+void stop()
+{
+    LEFT_EN = 0;
+    LEFT_MV = 0;
+    LEFT_BK = 0;
+    RIGHT_EN = 0;
+    RIGHT_MV = 0;
+    RIGHT_BK = 0;
+}
+
 void init_motor_switch()
 {
+    stop();
 }
 
 void move()
 {
+    LEFT_EN = 1;
+    LEFT_MV = 1;
+    LEFT_BK = 0;
+    RIGHT_EN = 1;
+    RIGHT_MV = 1;
+    RIGHT_BK = 0;
 }
 
 void back()
 {
+    LEFT_EN = 1;
+    LEFT_MV = 0;
+    LEFT_BK = 1;
+    RIGHT_EN = 1;
+    RIGHT_MV = 0;
+    RIGHT_BK = 1;
 }
 
 void turn_left()
 {
+    LEFT_EN = 0;
+    LEFT_MV = 0;
+    LEFT_BK = 0;
+    RIGHT_EN = 1;
+    RIGHT_MV = 1;
+    RIGHT_BK = 0;
 }
 
 void turn_right()
 {
+    LEFT_EN = 1;
+    LEFT_MV = 1;
+    LEFT_BK = 0;
+    RIGHT_EN = 0;
+    RIGHT_MV = 0;
+    RIGHT_BK = 0;
 }
 
 void update_motor_state(int *car_cmds)
 {
     for (char i = 0; i < COMMANDS_LENGTH; i++)
     {
-        car_cmds[i];
+        if (car_cmds[i] == COMMAND_LEFT_TOP)
+        {
+            LED_LEFT_TOP = !LED_LEFT_TOP;
+            move();
+        }
+        else if (car_cmds[i] == COMMAND_LEFT_DOWN) 
+        {
+            LED_LEFT_DOWN = !LED_LEFT_DOWN;
+            back();
+        }
+        else if (car_cmds[i] == COMMAND_LEFT_LEFT) 
+        {
+            LED_LEFT_LEFT = !LED_LEFT_LEFT;
+            turn_left();
+        }
+        else if (car_cmds[i] == COMMAND_LEFT_RIGHT) 
+        {
+            LED_LEFT_RIGHT = !LED_LEFT_RIGHT;
+            turn_right();
+        }
+        else if (car_cmds[i] == COMMAND_RIGHT_DOWN) 
+        {
+            LED_RIGHT_DOWN = !LED_RIGHT_DOWN;
+            stop();
+        }
     }
 }
 

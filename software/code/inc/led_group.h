@@ -4,9 +4,8 @@
   * the switch of leds
   * author: coregiu
   * 
-  * The controller of bits: P1_2
-  * The command of LED: RIGHT_LEFT and RIGHT_DOWN
-  * The monitor led of this command: P0_6  P0_7
+  * The command of LED: RIGHT_LEFT
+  * The monitor led of this command: P0_6
   * 
   ******************************************************************************
 **/

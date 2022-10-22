@@ -4,9 +4,8 @@
   * the switch of leds
   * author: coregiu
   * 
-  * The controller of bits: P1_2
-  * The command of LED: RIGHT_LEFT and RIGHT_DOWN
-  * The monitor of this command: P0_6  P0_6
+  * The command of LED: RIGHT_LEFT
+  * The led monitor of this command: P0_6
   * 
   ******************************************************************************
 **/
@@ -33,11 +32,6 @@ void update_led_state(int *car_cmds)
         {
             LED_RIGHT_LEFT = !LED_RIGHT_LEFT;
             change_led_type();
-        } else if (car_cmds[i] == COMMAND_RIGHT_DOWN) 
-        {
-            LED_RIGHT_DOWN = !LED_RIGHT_DOWN;
-            change_led_type();
-
         }
     }
 }
