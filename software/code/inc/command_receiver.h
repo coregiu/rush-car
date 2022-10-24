@@ -44,6 +44,13 @@ struct module_command_receiver
 	void (*update_state)(int *car_cmds);
 };
 
+extern uchar command_flag;
+
 extern void delay_time_ms(uint mil_sec);
+
+/**
+ * send debug data to serial port
+ */
+void uart_log_data(uchar log_data);
 
 #endif

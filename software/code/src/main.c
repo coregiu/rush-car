@@ -27,6 +27,6 @@ void main()
 	while (1)
 	{
 		receive_cmd();
-		delay_time_ms(500);
+		delay_time_ms(300);
 	}
 }

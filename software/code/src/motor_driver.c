@@ -132,26 +132,31 @@ void update_motor_state(int *car_cmds)
     {
         if (car_cmds[i] == COMMAND_LEFT_TOP)
         {
+            uart_log_data(49); // send 1
             LED_LEFT_TOP = !LED_LEFT_TOP;
             move();
         }
         else if (car_cmds[i] == COMMAND_LEFT_DOWN) 
         {
+            uart_log_data(50); // send 2
             LED_LEFT_DOWN = !LED_LEFT_DOWN;
             back();
         }
         else if (car_cmds[i] == COMMAND_LEFT_LEFT) 
         {
+            uart_log_data(51); // send 3
             LED_LEFT_LEFT = !LED_LEFT_LEFT;
             turn_left();
         }
         else if (car_cmds[i] == COMMAND_LEFT_RIGHT) 
         {
+            uart_log_data(52); // send 4
             LED_LEFT_RIGHT = !LED_LEFT_RIGHT;
             turn_right();
         }
         else if (car_cmds[i] == COMMAND_RIGHT_DOWN) 
         {
+            uart_log_data(56); // send 8
             LED_RIGHT_DOWN = !LED_RIGHT_DOWN;
             stop();
         }

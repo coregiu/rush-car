@@ -30,6 +30,7 @@ void update_led_state(int *car_cmds)
     {
         if (car_cmds[i] == COMMAND_RIGHT_LEFT)
         {
+            uart_log_data(55);// send 7
             LED_RIGHT_LEFT = !LED_RIGHT_LEFT;
             change_led_type();
         }
