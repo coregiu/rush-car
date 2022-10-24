@@ -92,4 +92,22 @@
 
  两组灯，一组是车顶LED灯，用P1_2控制开关。 一组是车头灯（前后左右共4个），常亮。车顶灯使用驱动模块(如下图)，加PWM控制模块实现开关和闪烁。
 
+灯光可以是下图的闪烁灯：
+
 <img src="modules/led_group.jpg" style="zoom:80%;" />
+
+也可以是下图的流水灯：
+
+<img src="modules/led_flow_single_ctrl.jpg" style="zoom:80%;" />
+
+还可以是这样的：
+
+也可以是下图的流水灯：
+
+<img src="modules/led_flow_double_ctrl.png" style="zoom:80%;" />
+
+
+
+
+
+# 看到这里，说明你心动了，攒一个吧，不贵，硬件成本才200元左右。

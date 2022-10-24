@@ -77,22 +77,64 @@ void uart_init()
 }
 
 /********************************************************************
-* name : uart_sendata(uchar n)
+* name : uart_send_debug_data(uchar n)
 * func : send data to ps2
 * in   : uchar
 * out  : void
 ***********************************************************************/
-void uart_sendata(uchar n)
+void uart_send_data(uchar send_data)
 {
 	ES = 0;
 	TI = 0;
-	SBUF = n;
+	SBUF = send_data;
 	while (!TI)
 	{
 		//will rest TI after send.
 	}
 	TI = 0;
 	ES = 1;
+}
+
+void uart_send_debug_data(uchar send_data)
+{
+	int converted_data;
+	if (send_data / 16 < 10)
+	{
+		converted_data = send_data / 16 + 0x30;
+	}
+	else
+	{
+		converted_data = send_data / 16 + 0x37;
+	}
+
+	if (send_data % 16 < 10)
+	{
+		converted_data = send_data % 16 + 0x30;
+	}
+	else
+	{
+		converted_data = send_data % 16 + 0x37;
+	}
+	uart_send_data(0x30);
+	uart_send_data(0x78);
+	uart_send_data(converted_data);
+	uart_send_data(' ');
+	uart_send_data(' ');
+}
+
+void uart_send_enter_char()
+{
+	uart_send_data(0x0d);
+	uart_send_data(0x0a);
+}
+
+void send_ps2_key_info()
+{
+	for (uchar i = 0; i < 9; i++)
+	{
+		uart_send_debug_data(out[i]);
+	}
+	uart_send_enter_char();
 }
 
 void delay(uint n) //delay(x)=(2.5+x)us;
@@ -143,9 +185,10 @@ uint *convert_commands()
 		if (out[command_map[i][0]] == command_map[i][1])
 		{
 			commands[i] = command_map[i][2];
-			uart_sendata(command_map[i][2]);
+			uart_send_debug_data(command_map[i][2]);
 		}
 	}
+	uart_send_enter_char();
 	return commands;
 }
 
@@ -157,38 +200,11 @@ uint *convert_commands()
 ***********************************************************************/
 uint *read_ps2(void)
 {
-	uchar i;
 	ATT = 0;
-	for (i = 0; i < 9; i++) //scan keys
+	for (uchar i = 0; i < 9; i++) //scan keys
 	{
 		out[i] = scanout(scan[i]);
 	}
 	ATT = 1;
-	for (i = 0; i < 9; i++)
-	{
-		uart_sendata(0x30);
-		uart_sendata(0x78);
-		if (out[i] / 16 < 10)
-		{
-			uart_sendata(out[i] / 16 + 0x30);
-		}
-		else
-		{
-			uart_sendata(out[i] / 16 + 0x37);
-		}
-
-		if (out[i] % 16 < 10)
-		{
-			uart_sendata(out[i] % 16 + 0x30);
-		}
-		else
-		{
-			uart_sendata(out[i] % 16 + 0x37);
-		}
-		uart_sendata(' ');
-		uart_sendata(' ');
-	}
-	uart_sendata(0x0d);
-	uart_sendata(0x0a);
 	return convert_commands();
 }
