@@ -98,23 +98,25 @@ void uart_log_data(uchar log_data)
 void uart_log_debug_data(uchar log_data)
 {
 	int converted_data;
-	if (log_data / 16 < 10)
+	
+	int log_hex_data = log_data >> 4;
+	if (log_hex_data < 10)
 	{
-		converted_data = log_data / 16 + 0x30;
+		converted_data = log_hex_data + 0x30;
 	}
 	else
 	{
-		converted_data = log_data / 16 + 0x37;
+		converted_data = log_hex_data + 0x37;
 	}
 
-	if (log_data % 16 < 10)
-	{
-		converted_data = log_data % 16 + 0x30;
-	}
-	else
-	{
-		converted_data = log_data % 16 + 0x37;
-	}
+	// if (log_data % 16 < 10)
+	// {
+	// 	converted_data = log_data % 16 + 0x30;
+	// }
+	// else
+	// {
+	// 	converted_data = log_data % 16 + 0x37;
+	// }
 	uart_log_data(0x30);
 	uart_log_data(0x78);
 	uart_log_data(converted_data);
@@ -184,7 +186,7 @@ uchar scan_input_from_ps2(uchar command)
 ***********************************************************************/
 uint *convert_commands()
 {
-	uint car_commands[COMMANDS_LENGTH] = {0, 0, 0, 0, 0, 0, 0, 0}; // default is COMMAND_NULL
+	uint car_commands[COMMANDS_LENGTH] = {0}; // default is COMMAND_NULL
 	for (char i = 0; i < COMMANDS_LENGTH; i++)
 	{
 		if (out[command_map[i][0]] == command_map[i][1])

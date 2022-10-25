@@ -17,19 +17,24 @@
 #define COMMANDS_LENGTH 8
 
 // define swtich const var
-#define SWITCH_ON  1
-#define SWITCH_OFF 0
+enum control_switch
+{
+  SWITCH_ON=1, SWITCH_OFF=0
+};
 
 // define commands id
-#define COMMAND_NULL         0
-#define COMMAND_LEFT_TOP     1
-#define COMMAND_LEFT_DOWN    2
-#define COMMAND_LEFT_LEFT    3
-#define COMMAND_LEFT_RIGHT   4
-#define COMMAND_RIGHT_TOP    5
-#define COMMAND_RIGHT_DOWN   6
-#define COMMAND_RIGHT_LEFT   7
-#define COMMAND_RIGHT_RIGHT  8
+enum car_commands
+{
+    COMMAND_NULL         = 0,
+    COMMAND_LEFT_TOP     = 1,
+    COMMAND_LEFT_DOWN    = 2,
+    COMMAND_LEFT_LEFT    = 3,
+    COMMAND_LEFT_RIGHT   = 4,
+    COMMAND_RIGHT_TOP    = 5,
+    COMMAND_RIGHT_DOWN   = 6,
+    COMMAND_RIGHT_LEFT   = 7,
+    COMMAND_RIGHT_RIGHT  = 8
+};
 
 // define led monitor
 #define LED_GROUP_MONITOR   P0

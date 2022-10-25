@@ -10,6 +10,8 @@
 
 #include <controller.h>
 
+const uint READ_PS2_INTVAL_TIME_MS = 200;
+
 void delay_time_ms(uint mil_sec)
 {
 	uint i, j;
@@ -27,6 +29,6 @@ void main()
 	while (1)
 	{
 		receive_cmd();
-		delay_time_ms(300);
+		delay_time_ms(READ_PS2_INTVAL_TIME_MS);
 	}
 }
