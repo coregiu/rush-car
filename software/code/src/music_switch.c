@@ -4,13 +4,13 @@
   * the switch of music
   * author: coregiu
   * 
-  * play switch: P2_6
-  * The command of play: RIGHT_TOP
-  * The monitor led of this command: P0_4
+  * music play switch: P2_6
   * 
-  * next switch: P2_7
-  * The command of play: RIGHT_RIGHT
-  * The monitor led of this command: P0_5
+  * The command of play: 
+  *     RIGHT_TOP  - switch on,  command 5; 
+  *     RIGHT_DOWN - switch off, command 6;
+  * 
+  * The monitor led of this command: P0_4  P0_5
   * 
   * 
   ******************************************************************************
@@ -21,20 +21,17 @@
 
 void init_music_switch()
 {
-    SWITCH_PLAY = 0;
-    SWITCH_NEXT = 0;
+    MUSIC_SWITCH = SWITCH_OFF;
 }
 
-void next_music()
+void music_switch_on()
 {
-    SWITCH_NEXT = 1;
-    delay_time_ms(500);
-    SWITCH_NEXT = 0;
+    MUSIC_SWITCH = SWITCH_ON;
 }
 
-void play_music()
+void music_switch_off()
 {
-    SWITCH_NEXT = !SWITCH_NEXT;
+    MUSIC_SWITCH = SWITCH_OFF;
 }
 
 void update_music_state(int *car_cmds)
@@ -45,13 +42,13 @@ void update_music_state(int *car_cmds)
         {
             uart_log_data(53); // send 5
             LED_RIGHT_TOP = !LED_RIGHT_TOP;
-            play_music();
+            music_switch_on();
         }
-        else if (car_cmds[i] == COMMAND_RIGHT_RIGHT) 
+        else if (car_cmds[i] == COMMAND_RIGHT_DOWN) 
         {
             uart_log_data(54); // send 6
-            LED_RIGHT_RIGHT = !LED_RIGHT_RIGHT;
-            next_music();
+            LED_RIGHT_DOWN = !LED_RIGHT_DOWN;
+            music_switch_off();
         }
     }
 }

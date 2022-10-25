@@ -4,8 +4,13 @@
   * the switch of leds
   * author: coregiu
   * 
-  * The command of LED: RIGHT_LEFT
-  * The led monitor of this command: P0_6
+  * led light switch: P2_7
+  * 
+  * The command of play: 
+  *     RIGHT_LEFT  - switch on,  command 7; 
+  *     RIGHT_RIGHT - switch off, command 8;
+  * 
+  * The monitor led of this command: P0_6  P0_7
   * 
   ******************************************************************************
 **/
@@ -16,13 +21,19 @@
 void init_led_group()
 {
     // leds light on
-    LED_ABOVE_CAR = 1;
+    LED_ABOVE_CAR = SWITCH_ON;
 }
 
-void change_led_type()
+void led_switch_on()
 {
-    LED_ABOVE_CAR = !LED_ABOVE_CAR;
+    LED_ABOVE_CAR = SWITCH_ON;
 }
+
+void led_switch_off()
+{
+    LED_ABOVE_CAR = SWITCH_OFF;
+}
+
 
 void update_led_state(int *car_cmds)
 {
@@ -32,7 +43,12 @@ void update_led_state(int *car_cmds)
         {
             uart_log_data(55);// send 7
             LED_RIGHT_LEFT = !LED_RIGHT_LEFT;
-            change_led_type();
+            led_switch_on();
+        } else if (car_cmds[i] == COMMAND_RIGHT_RIGHT)
+        {
+            uart_log_data(56);// send 8
+            LED_RIGHT_RIGHT = !LED_RIGHT_RIGHT;
+            led_switch_off();
         }
     }
 }

@@ -518,7 +518,7 @@
 											"fillColor": "#ffffd8",
 											"font": "Arial;13;0",
 											"left": 336,
-											"top": -144,
+											"top": -176,
 											"height": 13
 										},
 										{
@@ -530,7 +530,7 @@
 											"fillColor": "#ffffd8",
 											"font": "Arial;13;1",
 											"left": 709,
-											"top": 183,
+											"top": 167,
 											"width": 147.0625,
 											"height": 13,
 											"text": "led_group"
@@ -545,7 +545,7 @@
 											"fillColor": "#ffffd8",
 											"font": "Arial;13;0",
 											"left": 336,
-											"top": -144,
+											"top": -176,
 											"width": 72.947265625,
 											"height": 13,
 											"text": "(from Rucar)"
@@ -560,7 +560,7 @@
 											"fillColor": "#ffffd8",
 											"font": "Arial;13;0",
 											"left": 336,
-											"top": -144,
+											"top": -176,
 											"height": 13,
 											"horizontalAlignment": 1
 										}
@@ -568,7 +568,7 @@
 									"fillColor": "#ffffd8",
 									"font": "Arial;13;0",
 									"left": 704,
-									"top": 176,
+									"top": 160,
 									"width": 157.0625,
 									"height": 25,
 									"stereotypeLabel": {
@@ -606,17 +606,17 @@
 											"fillColor": "#ffffd8",
 											"font": "Arial;13;0",
 											"left": 709,
-											"top": 206,
+											"top": 190,
 											"width": 147.0625,
 											"height": 13,
-											"text": "+leds",
+											"text": "+led_group",
 											"horizontalAlignment": 0
 										}
 									],
 									"fillColor": "#ffffd8",
 									"font": "Arial;13;0",
 									"left": 704,
-									"top": 201,
+									"top": 185,
 									"width": 157.0625,
 									"height": 23
 								},
@@ -642,7 +642,7 @@
 											"fillColor": "#ffffd8",
 											"font": "Arial;13;0",
 											"left": 709,
-											"top": 229,
+											"top": 213,
 											"width": 147.0625,
 											"height": 13,
 											"text": "+init_led_group()",
@@ -660,7 +660,7 @@
 											"fillColor": "#ffffd8",
 											"font": "Arial;13;0",
 											"left": 709,
-											"top": 244,
+											"top": 228,
 											"width": 147.0625,
 											"height": 13,
 											"text": "+update_led_state(cmds)",
@@ -678,19 +678,37 @@
 											"fillColor": "#ffffd8",
 											"font": "Arial;13;0",
 											"left": 709,
-											"top": 259,
+											"top": 243,
 											"width": 147.0625,
 											"height": 13,
-											"text": "+change_led_type()",
+											"text": "+led_switch_on()",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAGEDqk/dbCFoWE=",
+											"_parent": {
+												"$ref": "AAAAAAGD9g0Lb0UJhg4="
+											},
+											"model": {
+												"$ref": "AAAAAAGEDqk/TbCCv9I="
+											},
+											"fillColor": "#ffffd8",
+											"font": "Arial;13;0",
+											"left": 709,
+											"top": 258,
+											"width": 147.0625,
+											"height": 13,
+											"text": "+led_switch_off()",
 											"horizontalAlignment": 0
 										}
 									],
 									"fillColor": "#ffffd8",
 									"font": "Arial;13;0",
 									"left": 704,
-									"top": 224,
+									"top": 208,
 									"width": 157.0625,
-									"height": 53
+									"height": 68
 								},
 								{
 									"_type": "UMLReceptionCompartmentView",
@@ -705,7 +723,7 @@
 									"fillColor": "#ffffd8",
 									"font": "Arial;13;0",
 									"left": 168,
-									"top": -72,
+									"top": -88,
 									"width": 10,
 									"height": 10
 								},
@@ -722,7 +740,7 @@
 									"fillColor": "#ffffd8",
 									"font": "Arial;13;0",
 									"left": 168,
-									"top": -72,
+									"top": -88,
 									"width": 10,
 									"height": 10
 								}
@@ -731,9 +749,9 @@
 							"font": "Arial;13;0",
 							"containerChangeable": true,
 							"left": 704,
-							"top": 176,
+							"top": 160,
 							"width": 157.0625,
-							"height": 101,
+							"height": 116,
 							"nameCompartment": {
 								"$ref": "AAAAAAGD9g0LbkUDcLU="
 							},
@@ -891,6 +909,24 @@
 											"height": 13,
 											"text": "+right_montor",
 											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAGEDqoiRrTlR5w=",
+											"_parent": {
+												"$ref": "AAAAAAGD9g0q3kUyUdA="
+											},
+											"model": {
+												"$ref": "AAAAAAGEDqoiNLTiTx4="
+											},
+											"fillColor": "#ffffd8",
+											"font": "Arial;13;0",
+											"left": 702,
+											"top": 484,
+											"width": 162.9443359375,
+											"height": 13,
+											"text": "+current_state",
+											"horizontalAlignment": 0
 										}
 									],
 									"fillColor": "#ffffd8",
@@ -898,7 +934,7 @@
 									"left": 697,
 									"top": 449,
 									"width": 172.9443359375,
-									"height": 38
+									"height": 53
 								},
 								{
 									"_type": "UMLOperationCompartmentView",
@@ -922,7 +958,7 @@
 											"fillColor": "#ffffd8",
 											"font": "Arial;13;0",
 											"left": 702,
-											"top": 492,
+											"top": 507,
 											"width": 162.9443359375,
 											"height": 13,
 											"text": "+init_motor_switch()",
@@ -940,7 +976,7 @@
 											"fillColor": "#ffffd8",
 											"font": "Arial;13;0",
 											"left": 702,
-											"top": 507,
+											"top": 522,
 											"width": 162.9443359375,
 											"height": 13,
 											"text": "+update_motor_state(cmds)",
@@ -958,7 +994,7 @@
 											"fillColor": "#ffffd8",
 											"font": "Arial;13;0",
 											"left": 702,
-											"top": 522,
+											"top": 537,
 											"width": 162.9443359375,
 											"height": 13,
 											"text": "+move()",
@@ -976,7 +1012,7 @@
 											"fillColor": "#ffffd8",
 											"font": "Arial;13;0",
 											"left": 702,
-											"top": 537,
+											"top": 552,
 											"width": 162.9443359375,
 											"height": 13,
 											"text": "+back()",
@@ -994,7 +1030,7 @@
 											"fillColor": "#ffffd8",
 											"font": "Arial;13;0",
 											"left": 702,
-											"top": 552,
+											"top": 567,
 											"width": 162.9443359375,
 											"height": 13,
 											"text": "+turn_left()",
@@ -1012,7 +1048,7 @@
 											"fillColor": "#ffffd8",
 											"font": "Arial;13;0",
 											"left": 702,
-											"top": 567,
+											"top": 582,
 											"width": 162.9443359375,
 											"height": 13,
 											"text": "+trurn_right()",
@@ -1022,7 +1058,7 @@
 									"fillColor": "#ffffd8",
 									"font": "Arial;13;0",
 									"left": 697,
-									"top": 487,
+									"top": 502,
 									"width": 172.9443359375,
 									"height": 98
 								},
@@ -1067,7 +1103,7 @@
 							"left": 697,
 							"top": 424,
 							"width": 172.9443359375,
-							"height": 161,
+							"height": 177,
 							"nameCompartment": {
 								"$ref": "AAAAAAGD9g0q3kUtOQY="
 							},
@@ -1205,25 +1241,7 @@
 											"top": 316,
 											"width": 163.66162109375,
 											"height": 13,
-											"text": "+switch_play",
-											"horizontalAlignment": 0
-										},
-										{
-											"_type": "UMLAttributeView",
-											"_id": "AAAAAAGD9hcQx0yf04w=",
-											"_parent": {
-												"$ref": "AAAAAAGD9g4Qu0VdA/o="
-											},
-											"model": {
-												"$ref": "AAAAAAGD9hcQwEycAJw="
-											},
-											"fillColor": "#ffffd8",
-											"font": "Arial;13;0",
-											"left": 701,
-											"top": 331,
-											"width": 163.66162109375,
-											"height": 13,
-											"text": "+switch_next",
+											"text": "+music_board",
 											"horizontalAlignment": 0
 										}
 									],
@@ -1232,7 +1250,7 @@
 									"left": 696,
 									"top": 311,
 									"width": 173.66162109375,
-									"height": 38
+									"height": 23
 								},
 								{
 									"_type": "UMLOperationCompartmentView",
@@ -1256,7 +1274,7 @@
 											"fillColor": "#ffffd8",
 											"font": "Arial;13;0",
 											"left": 701,
-											"top": 354,
+											"top": 339,
 											"width": 163.66162109375,
 											"height": 13,
 											"text": "+init_music_switch()",
@@ -1274,7 +1292,7 @@
 											"fillColor": "#ffffd8",
 											"font": "Arial;13;0",
 											"left": 701,
-											"top": 369,
+											"top": 354,
 											"width": 163.66162109375,
 											"height": 13,
 											"text": "+update_music_state(cmds)",
@@ -1292,10 +1310,10 @@
 											"fillColor": "#ffffd8",
 											"font": "Arial;13;0",
 											"left": 701,
-											"top": 384,
+											"top": 369,
 											"width": 163.66162109375,
 											"height": 13,
-											"text": "+next_music()",
+											"text": "+music_switch_on()",
 											"horizontalAlignment": 0
 										},
 										{
@@ -1310,17 +1328,17 @@
 											"fillColor": "#ffffd8",
 											"font": "Arial;13;0",
 											"left": 701,
-											"top": 399,
+											"top": 384,
 											"width": 163.66162109375,
 											"height": 13,
-											"text": "+play_music()",
+											"text": "+music_switch_off()",
 											"horizontalAlignment": 0
 										}
 									],
 									"fillColor": "#ffffd8",
 									"font": "Arial;13;0",
 									"left": 696,
-									"top": 349,
+									"top": 334,
 									"width": 173.66162109375,
 									"height": 68
 								},
@@ -2149,8 +2167,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 675,
-									"top": 295,
+									"left": 673,
+									"top": 291,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
@@ -2170,8 +2188,8 @@
 									},
 									"visible": null,
 									"font": "Arial;13;0",
-									"left": 682,
-									"top": 308,
+									"left": 681,
+									"top": 304,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 30,
@@ -2191,8 +2209,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 660,
-									"top": 268,
+									"left": 658,
+									"top": 266,
 									"height": 13,
 									"alpha": -1.5707963267948966,
 									"distance": 15,
@@ -2211,7 +2229,7 @@
 								"$ref": "AAAAAAGD9g0LbkUCuL8="
 							},
 							"lineStyle": 1,
-							"points": "703:269;634:307",
+							"points": "703:263;629:307",
 							"showVisibility": true,
 							"nameLabel": {
 								"$ref": "AAAAAAGD9htxXFUw9qY="
@@ -2339,8 +2357,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 649,
-									"top": 426,
+									"left": 647,
+									"top": 429,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
@@ -2360,8 +2378,8 @@
 									},
 									"visible": null,
 									"font": "Arial;13;0",
-									"left": 641,
-									"top": 439,
+									"left": 638,
+									"top": 441,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 30,
@@ -2381,8 +2399,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 666,
-									"top": 401,
+									"left": 664,
+									"top": 404,
 									"height": 13,
 									"alpha": -1.5707963267948966,
 									"distance": 15,
@@ -2401,7 +2419,7 @@
 								"$ref": "AAAAAAGD9g0q3kUs1Es="
 							},
 							"lineStyle": 1,
-							"points": "696:446;620:395",
+							"points": "696:451;616:395",
 							"showVisibility": true,
 							"nameLabel": {
 								"$ref": "AAAAAAGD9hucuVZm0bo="
@@ -3081,7 +3099,8 @@
 							"_parent": {
 								"$ref": "AAAAAAGD9gyZFkTVLSY="
 							},
-							"name": "modules[]"
+							"name": "modules[]",
+							"type": ""
 						}
 					],
 					"operations": [
@@ -3151,8 +3170,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGD9g0LbUUAYAM="
 							},
-							"name": "leds",
-							"type": ""
+							"name": "led_group"
 						}
 					],
 					"operations": [
@@ -3178,7 +3196,8 @@
 									"_parent": {
 										"$ref": "AAAAAAGD9hJDz0jAxoU="
 									},
-									"name": "cmds"
+									"name": "cmds",
+									"type": ""
 								}
 							]
 						},
@@ -3188,7 +3207,15 @@
 							"_parent": {
 								"$ref": "AAAAAAGD9g0LbUUAYAM="
 							},
-							"name": "change_led_type"
+							"name": "led_switch_on"
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAGEDqk/TbCCv9I=",
+							"_parent": {
+								"$ref": "AAAAAAGD9g0LbUUAYAM="
+							},
+							"name": "led_switch_off"
 						}
 					]
 				},
@@ -3232,6 +3259,14 @@
 							},
 							"name": "right_montor",
 							"type": ""
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGEDqoiNLTiTx4=",
+							"_parent": {
+								"$ref": "AAAAAAGD9g0q3UUqm/g="
+							},
+							"name": "current_state"
 						}
 					],
 					"operations": [
@@ -3257,7 +3292,8 @@
 									"_parent": {
 										"$ref": "AAAAAAGD9hofVlAjUw4="
 									},
-									"name": "cmds"
+									"name": "cmds",
+									"type": ""
 								}
 							]
 						},
@@ -3324,15 +3360,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGD9g4QukVV+YU="
 							},
-							"name": "switch_play"
-						},
-						{
-							"_type": "UMLAttribute",
-							"_id": "AAAAAAGD9hcQwEycAJw=",
-							"_parent": {
-								"$ref": "AAAAAAGD9g4QukVV+YU="
-							},
-							"name": "switch_next"
+							"name": "music_board"
 						}
 					],
 					"operations": [
@@ -3358,7 +3386,8 @@
 									"_parent": {
 										"$ref": "AAAAAAGD9hddck0WuZQ="
 									},
-									"name": "cmds"
+									"name": "cmds",
+									"type": ""
 								}
 							]
 						},
@@ -3368,7 +3397,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGD9g4QukVV+YU="
 							},
-							"name": "next_music"
+							"name": "music_switch_on"
 						},
 						{
 							"_type": "UMLOperation",
@@ -3376,7 +3405,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGD9g4QukVV+YU="
 							},
-							"name": "play_music"
+							"name": "music_switch_off"
 						}
 					]
 				},
@@ -3447,7 +3476,8 @@
 									"_parent": {
 										"$ref": "AAAAAAGD9hrRAlDTFsI="
 									},
-									"name": "cmds"
+									"name": "cmds",
+									"type": ""
 								}
 							]
 						}

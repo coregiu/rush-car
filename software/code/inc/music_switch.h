@@ -4,13 +4,13 @@
   * the switch of music
   * author: coregiu
   * 
-  * play switch: P2_6
-  * The command of play: RIGHT_TOP
-  * The monitor led of this command: P0_4
+  * music play switch: P2_6
   * 
-  * next switch: P2_7
-  * The command of play: RIGHT_RIGHT
-  * The monitor led of this command: P0_5
+  * The command of play: 
+  *     RIGHT_TOP  - switch on,  command 5; 
+  *     RIGHT_DOWN - switch off, command 6;
+  * 
+  * The monitor led of this command: P0_4  P0_5
   * 
   * 
   ******************************************************************************
@@ -21,8 +21,7 @@
 
 #include <command_receiver.h>
 
-#define SWITCH_PLAY P2_6
-#define SWITCH_NEXT P2_7
+#define MUSIC_SWITCH P2_6
 
 extern const struct module_command_receiver music_switch;
 
