@@ -77,7 +77,7 @@ void uart_init()
 }
 
 /********************************************************************
-* name : uart_log_debug_data(uchar n)
+* name : uart_log_data(uchar n)
 * func : send debug data to serial port
 * in   : uchar
 * out  : void
@@ -95,11 +95,20 @@ void uart_log_data(uchar log_data)
 	ES = 1;
 }
 
+void uart_log_enter_char()
+{
+	uart_log_data(0x0d);
+	uart_log_data(0x0a);
+}
+
+
 void uart_log_debug_data(uchar log_data)
 {
+	uart_log_enter_char();
 	int converted_data;
-	
-	int log_hex_data = log_data >> 4;
+	uart_log_data(0x30);
+	uart_log_data(0x78);
+	int log_hex_data = log_data / 16;
 	if (log_hex_data < 10)
 	{
 		converted_data = log_hex_data + 0x30;
@@ -109,27 +118,20 @@ void uart_log_debug_data(uchar log_data)
 		converted_data = log_hex_data + 0x37;
 	}
 
-	// if (log_data % 16 < 10)
-	// {
-	// 	converted_data = log_data % 16 + 0x30;
-	// }
-	// else
-	// {
-	// 	converted_data = log_data % 16 + 0x37;
-	// }
-	uart_log_data(0x30);
-	uart_log_data(0x78);
+	log_hex_data = log_data % 16;
+	if (log_hex_data % 16 < 10)
+	{
+		converted_data = log_hex_data % 16 + 0x30;
+	}
+	else
+	{
+		converted_data = log_hex_data % 16 + 0x37;
+	}
 	uart_log_data(converted_data);
 	uart_log_data(' ');
 	uart_log_data(' ');
+	uart_log_enter_char();
 }
-
-void uart_log_enter_char()
-{
-	uart_log_data(0x0d);
-	uart_log_data(0x0a);
-}
-
 void send_ps2_key_info()
 {
 	for (uchar i = 0; i < 9; i++)
@@ -195,7 +197,6 @@ uint *convert_commands()
 			uart_log_debug_data(command_map[i][2]);
 		}
 	}
-	uart_log_enter_char();
 	return car_commands;
 }
 

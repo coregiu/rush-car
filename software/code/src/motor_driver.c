@@ -71,7 +71,7 @@
 #include <motor_driver.h>
 #include <mcs51/8051.h>
 
-const uint MOTOR_RUN_TIME_ONCE_MS = 2000;
+const uint MOTOR_RUN_TIME_ONCE_MS = 500;
 
 // CAR run state
 enum car_run_state
