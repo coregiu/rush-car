@@ -53,7 +53,11 @@ const uint command_map[COMMANDS_LENGTH][3] = {{3, 0xEF, COMMAND_LEFT_TOP},
 										      {4, 0xEF, COMMAND_RIGHT_TOP}, 
 										      {4, 0xBF, COMMAND_RIGHT_DOWN}, 
 										      {4, 0x7F, COMMAND_RIGHT_LEFT}, 
-										      {4, 0xDF, COMMAND_RIGHT_RIGHT}};
+										      {4, 0xDF, COMMAND_RIGHT_RIGHT}, 
+										      {4, 0xFB, COMMAND_LEFT_1}, 
+										      {4, 0xFE, COMMAND_LEFT_2}, 
+										      {4, 0xF7, COMMAND_RIGHT_1}, 
+										      {4, 0xFD, COMMAND_RIGHT_2}};
 
 uchar out[9];
 

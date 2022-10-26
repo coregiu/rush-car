@@ -14,7 +14,7 @@
 #define uint unsigned int
 #define uchar unsigned char
 
-#define COMMANDS_LENGTH 8
+#define COMMANDS_LENGTH 12
 
 // define swtich const var
 enum control_switch
@@ -33,7 +33,11 @@ enum car_commands
     COMMAND_RIGHT_TOP    = 5,
     COMMAND_RIGHT_DOWN   = 6,
     COMMAND_RIGHT_LEFT   = 7,
-    COMMAND_RIGHT_RIGHT  = 8
+    COMMAND_RIGHT_RIGHT  = 8,
+    COMMAND_LEFT_1       = 9,
+    COMMAND_LEFT_2       = 10,
+    COMMAND_RIGHT_1      = 11,
+    COMMAND_RIGHT_2      = 12
 };
 
 // define led monitor

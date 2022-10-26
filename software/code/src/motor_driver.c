@@ -150,6 +150,26 @@ void update_motor_state(int *car_cmds)
             delay_time_ms(MOTOR_RUN_TIME_ONCE_MS);
             stop();
             break;
+        case COMMAND_LEFT_1:
+            uart_log_data(57); // send 9
+            LED_LEFT_TOP = !LED_LEFT_TOP;
+            exec_car_state_update(MOVE);
+            break;
+        case COMMAND_LEFT_2:
+            uart_log_data(65); // send A
+            LED_LEFT_DOWN = !LED_LEFT_DOWN;
+            stop();
+            break;
+        case COMMAND_RIGHT_1:
+            uart_log_data(66); // send B
+            LED_LEFT_LEFT = !LED_LEFT_LEFT;
+            exec_car_state_update(BACK);
+            break;
+        case COMMAND_RIGHT_2:
+            uart_log_data(67); // send C
+            LED_LEFT_RIGHT = !LED_LEFT_RIGHT;
+            stop();
+            break;
         default:
             break;
         }
