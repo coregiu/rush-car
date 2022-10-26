@@ -1,7 +1,7 @@
 /**
   ******************************************************************************
   *
-  * the switch of motor
+  * The driver of motor
   * author: coregiu
   * 
   * MOVE command:
@@ -48,23 +48,12 @@
   *         RIGHT_MV = 0
   *         RIGHT_BK = 0
   * 
-  * STOP command:
-  *     key: RIGHT_DOWN
-  *     monitor led: P0_7
-  *     gpio:
-  *         LEFT_EN = 0
-  *         LEFT_MV = 0
-  *         LEFT_BK = 0
-  *         RIGHT_EN = 0
-  *         RIGHT_MV = 0
-  *         RIGHT_BK = 0
-  * 
-  * P2_0 : LEFT_EN   L298N_EnB
-  * P2_1 : LEFT_MV   L298N_IN4
-  * P2_2 : LEFT_BK   L298N_IN3
-  * P2_3 : RIGHT_EN  L298N_EnA
-  * P2_4 : RIGHT_MV  L298N_IN2
-  * P2_5 : RIGHT_BK  L298N_IN1 
+  * P2_0 : RIGHT_EN  L298N_EnA
+  * P2_1 : RIGHT_MV  L298N_IN2
+  * P2_2 : RIGHT_BK  L298N_IN1 
+  * P2_3 : LEFT_EN   L298N_EnB
+  * P2_4 : LEFT_MV   L298N_IN4
+  * P2_5 : LEFT_BK   L298N_IN3
   * 
   ******************************************************************************
 **/
