@@ -65,9 +65,9 @@
 #define   RIGHT_EN   P2_0
 #define   RIGHT_MV   P2_1
 #define   RIGHT_BK   P2_2
-#define   LEFT_EN    P2_3
-#define   LEFT_MV    P2_4
-#define   LEFT_BK    P2_5
+#define   LEFT_MV    P2_3
+#define   LEFT_BK    P2_4
+#define   LEFT_EN    P2_5
 
 extern const struct module_command_receiver motor_driver;
 

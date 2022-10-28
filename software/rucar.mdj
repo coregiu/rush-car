@@ -3265,7 +3265,8 @@
 							"_parent": {
 								"$ref": "AAAAAAGD9g0q3UUqm/g="
 							},
-							"name": "CAR_STATE_LIST"
+							"name": "CAR_STATE_LIST",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -3273,7 +3274,8 @@
 							"_parent": {
 								"$ref": "AAAAAAGD9g0q3UUqm/g="
 							},
-							"name": "gpio_position"
+							"name": "gpio_position",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
