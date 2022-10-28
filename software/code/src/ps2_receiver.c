@@ -113,15 +113,6 @@ void uart_log_debug_data(uchar log_data)
 	uart_log_data(0x30);
 	uart_log_data(0x78);
 	int log_hex_data = log_data / 16;
-	if (log_hex_data < 10)
-	{
-		converted_data = log_hex_data + 0x30;
-	}
-	else
-	{
-		converted_data = log_hex_data + 0x37;
-	}
-
 	log_hex_data = log_data % 16;
 	if (log_hex_data % 16 < 10)
 	{
