@@ -26,12 +26,18 @@ void init_music_switch()
 
 void music_switch_on()
 {
-    MUSIC_SWITCH = SWITCH_ON;
+    if (MUSIC_SWITCH != SWITCH_ON)
+    {
+        MUSIC_SWITCH = SWITCH_ON;
+    }
 }
 
 void music_switch_off()
 {
-    MUSIC_SWITCH = SWITCH_OFF;
+    if (MUSIC_SWITCH != SWITCH_OFF)
+    {
+        MUSIC_SWITCH = SWITCH_OFF;
+    }
 }
 
 void update_music_state(int *car_cmds)

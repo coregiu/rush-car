@@ -21,17 +21,23 @@
 void init_led_group()
 {
     // leds light on
-    LED_ABOVE_CAR = SWITCH_ON;
+    LED_ABOVE_CAR = SWITCH_OFF;
 }
 
 void led_switch_on()
 {
-    LED_ABOVE_CAR = SWITCH_ON;
+    if (LED_ABOVE_CAR != SWITCH_ON)
+    {
+        LED_ABOVE_CAR = SWITCH_ON;
+    }
 }
 
 void led_switch_off()
 {
-    LED_ABOVE_CAR = SWITCH_OFF;
+    if (LED_ABOVE_CAR != SWITCH_OFF)
+    {
+        LED_ABOVE_CAR = SWITCH_OFF;
+    }
 }
 
 
