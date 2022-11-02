@@ -13,7 +13,7 @@
 
 
 #### 控制模块
-<img src="modules/51mcu.jpg" style="zoom: %;" />
+<img src="modules/51mcu.jpg" style="zoom: 70%;" />
 
 使用51单片机（STC89C52RC）作为控制中心，其中P0口系列自带LED灯，为指令监控显示灯； P2.0-P2.5 为电机控制口，P2.6 为音乐开关。P2.7为灯组开关，P1.4-P1.7为PS2通信口。
 晶振频率：11.0592
@@ -85,6 +85,8 @@
 
 
 
+
+
 ##### 方案2： 使用ISD1820录放音芯片模块
 
 <img src="modules/isd1820.jpg"/>
@@ -93,31 +95,55 @@
 
 这个芯片可以录音，相对好玩一点。如果觉得音量小，可以自己再搞个放大电路，来个广场效果的。
 
+此芯片有多种播放模式，默认出厂带的有PLAYE、PLAYL两种，可以通过GPIO高电平控制触发。但这两种模式都是一次播放完就停止了。如果要循环播放，可以将其RECLED和PLAYL连接，进入循环播放模式。即在芯片排针后排的P-E跳帽插在里面最外侧两个针脚上。（另外一边跳帽是直通模式跳帽）
+
+但这样做就不能通过GPIO控制播放了，会持续循环播放。因此这里将ISD1820芯片置循环播放模式，使用PWM控制器控制电源方式实现开关控制。
+
+
+
+##### 方案3： 使用MP3模块，播放音乐
+
+方案2问题是录音时间太短，如果想听歌，可以用MP3模块，如下图：
+
+<img src="modules/mp3.jpg" style="zoom:60%;" />
+
+
+
+#### 音频放大器
+
+用来放大ISD1820音频，如下：
+
+<img src="modules/AD828.jpg" style="zoom:60%;" />
+
 
 
 #### PWM控制模块
 
 配合音乐模块使用，实现音乐开关和切换。这玩意一定按示意图接，不能只开一路好像。
 
-<img src="modules/pwm_mos.jpg" style="zoom:60%;" />
+<img src="modules/pwm_mos.jpg" style="zoom:40%;" />
 
 #### LED灯组模块
 
  两组灯，一组是车顶LED灯，用P1_2控制开关。 一组是车头灯（前后左右共4个），常亮。车顶灯使用驱动模块(如下图)，加PWM控制模块实现开关和闪烁。这里可以自己买块板子自己焊，想整什么样的就整什么样的。网上大把的教程。
 
-灯光可以是下图的闪烁灯：
+##### 方案1：灯光可以是下图的闪烁灯：
 
 <img src="modules/led_group.jpg" style="zoom:80%;" />
 
-也可以是下图的流水灯：
+##### 方案2：也可以是下图的流水灯：
 
 <img src="modules/led_flow_single_ctrl.jpg" style="zoom:80%;" />
 
-还可以是这样的：
+##### 方案3：还可以是这样的：
 
 也可以是下图的流水灯：
 
-<img src="modules/led_flow_double_ctrl.png" style="zoom:80%;" />
+<img src="modules/led_flow_double_ctrl.png" style="zoom:60%;" />
+
+##### 方案4:也可以是声控流水灯：
+
+<img src="modules/music_led.jpg" style="zoom:80%;" />
 
 
 
