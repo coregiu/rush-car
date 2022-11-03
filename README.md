@@ -1,5 +1,5 @@
 # RUCAR
-RUCAR: Rush Car， 我的RUSH辈代表作之一。
+RUCAR: Rush Car
 
 RUCAR是利用51单片机、L298N电机驱动、PS2手柄、音乐芯片、PWM控制模块、DIY灯组和小车底盘DIY实现的PS2摇控小车，并且可以用PS2控制的音乐播放和灯组。
 
@@ -56,9 +56,13 @@ RUCAR是利用51单片机、L298N电机驱动、PS2手柄、音乐芯片、PWM�
 ## 成品效果
 
 
+侧面
 
 ![](RUCAR.jpg)
 
+正面
+
+![](RUCAR_F.jpg)
 
 
 ## 硬件模块及工具清单：
