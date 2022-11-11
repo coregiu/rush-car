@@ -29,7 +29,7 @@ void init_modules();
  * and notify modules to execute commands;
  * 
  */
-void receive_cmd();
+void receive_exe_cmd();
 
 /**
  * notify modules to execute the commands.

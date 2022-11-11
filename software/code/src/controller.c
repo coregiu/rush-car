@@ -28,7 +28,7 @@ void init_modules()
  * and notify modules to execute commands;
  * 
  */
-void receive_cmd()
+void receive_exe_cmd()
 {
     uint *commands = read_ps2();
     notify_all(commands);
