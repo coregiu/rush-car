@@ -9,14 +9,13 @@
 **/
 
 #include <controller.h>
+/* 71ms per period */
+#define READ_PS2_INTVAL_TIME_MS_H 0X00
+#define READ_PS2_INTVAL_TIME_MS_L 0X00
 
 struct pt pt_cmd_receiver, pt_motor_inspector;
 uint non_motor_cmd_times = 0;
 uchar is_has_command = 0;
-
-/* 65536 - 15536 = 50000us = 50ms*/
-const uint READ_PS2_INTVAL_TIME_MS_H = 0X4B;
-const uint READ_PS2_INTVAL_TIME_MS_L = 0XEC;
 
 void delay_time_ms(uint mil_sec)
 {

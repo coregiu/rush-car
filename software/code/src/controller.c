@@ -61,11 +61,12 @@ int inspect_motor(struct pt *pt)
 	while (1)
 	{
 		/* Wait until the other protothread has set its flag. */
-		PT_WAIT_UNTIL(pt, non_motor_cmd_times >= CAR_RUN_DELAY_TIMES);
+		PT_WAIT_UNTIL(pt, non_motor_cmd_times >= CAR_RUN_DELAY_TIMES && is_need_stop_auto);
 		notify_all(MODULE_MOTOR, COMMAND_LEFT_2); // stop the car
 
 		/* We then reset the other protothread's flag. */
         non_motor_cmd_times = 0;
+        is_need_stop_auto = 0;
         
 		/* And we loop. */
 	}

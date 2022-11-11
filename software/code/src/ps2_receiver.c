@@ -124,9 +124,9 @@ void convert_commands(uint **commands)
 		{
 			commands[i][0] = command_map[i][2];
 			commands[i][1] = command_map[i][3];
-			uart_log_enter_char();
-			uart_log_string_data("p:");
-			uart_log_hex_data(command_map[i][2]);
+			// uart_log_enter_char();
+			// uart_log_string_data("p:");
+			// uart_log_hex_data(command_map[i][2]);
 			is_has_command = 1;
 		}
 	}
