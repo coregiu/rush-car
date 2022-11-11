@@ -42,9 +42,9 @@ enum car_commands
 // define module id
 enum module
 {
-    MOTOR   = 0,
-    MUSIC   = 1,
-    LED     = 2
+    MODULE_MOTOR   = 0,
+    MODULE_MUSIC   = 1,
+    MODULE_LED     = 2
 };
 
 // define led monitor
@@ -64,7 +64,8 @@ struct module_command_receiver
 	void (*update_state)(uint car_cmd);
 };
 
-static uint non_motor_cmd_times = 0;
+extern uint non_motor_cmd_times;
+extern uchar is_has_command;
 
 extern void delay_time_ms(uint mil_sec);
 

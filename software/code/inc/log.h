@@ -23,6 +23,11 @@
 void uart_log_data(uchar log_data);
 
 /**
+ * log string
+ */
+void uart_log_string_data(uchar *log_data);
+
+/**
  * log date to hex code.
  */
 void uart_log_hex_data(uchar log_data);

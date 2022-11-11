@@ -69,6 +69,8 @@
 #define   LEFT_BK    P2_4
 #define   LEFT_EN    P2_5
 
+extern uchar is_need_stop_auto;
+
 extern const struct module_command_receiver motor_driver;
 
 #endif

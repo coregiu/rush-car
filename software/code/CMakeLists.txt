@@ -12,6 +12,7 @@ project(${PROJECT_NAME} C)  # 这个C是必须的, 否则将会提示CXX编译�
 
 # 头文件查找目录
 include_directories(${PROJECT_SOURCE_DIR}/inc)
+include_directories(${PROJECT_SOURCE_DIR}/pt)
 
 # 源码子目录
 add_subdirectory(${PROJECT_SOURCE_DIR}/src)
