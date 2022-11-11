@@ -46,13 +46,13 @@ void update_music_state(int *car_cmds)
     {
         if (car_cmds[i] == COMMAND_RIGHT_TOP)
         {
-            uart_log_data(53); // send 5
+            uart_log_data('5'); // send 5
             LED_RIGHT_TOP = !LED_RIGHT_TOP;
             music_switch_on();
         }
         else if (car_cmds[i] == COMMAND_RIGHT_DOWN) 
         {
-            uart_log_data(54); // send 6
+            uart_log_data('6'); // send 6
             LED_RIGHT_DOWN = !LED_RIGHT_DOWN;
             music_switch_off();
         }

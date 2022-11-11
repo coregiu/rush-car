@@ -46,18 +46,18 @@ out[6] 00——7F——FF 右摇杆从上到下
 /********vars of ps2*********/
 const uchar scan[9] = {0x01, 0x42, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 
-const uint command_map[COMMANDS_LENGTH][3] = {{3, 0xEF, COMMAND_LEFT_TOP}, 
-										      {3, 0xBF, COMMAND_LEFT_DOWN}, 
-										      {3, 0x7F, COMMAND_LEFT_LEFT}, 
-										      {3, 0xDF, COMMAND_LEFT_RIGHT}, 
-										      {4, 0xEF, COMMAND_RIGHT_TOP}, 
-										      {4, 0xBF, COMMAND_RIGHT_DOWN}, 
-										      {4, 0x7F, COMMAND_RIGHT_LEFT}, 
-										      {4, 0xDF, COMMAND_RIGHT_RIGHT}, 
-										      {4, 0xFB, COMMAND_LEFT_1}, 
-										      {4, 0xFE, COMMAND_LEFT_2}, 
-										      {4, 0xF7, COMMAND_RIGHT_1}, 
-										      {4, 0xFD, COMMAND_RIGHT_2}};
+const uint command_map[COMMANDS_LENGTH][4] = {{3, 0xEF, COMMAND_LEFT_TOP, MOTOR}, 
+										      {3, 0xBF, COMMAND_LEFT_DOWN, MOTOR}, 
+										      {3, 0x7F, COMMAND_LEFT_LEFT, MOTOR}, 
+										      {3, 0xDF, COMMAND_LEFT_RIGHT, MOTOR}, 
+										      {4, 0xEF, COMMAND_RIGHT_TOP, MUSIC}, 
+										      {4, 0xBF, COMMAND_RIGHT_DOWN, MUSIC}, 
+										      {4, 0x7F, COMMAND_RIGHT_LEFT, LED}, 
+										      {4, 0xDF, COMMAND_RIGHT_RIGHT, LED}, 
+										      {4, 0xFB, COMMAND_LEFT_1, MOTOR}, 
+										      {4, 0xFE, COMMAND_LEFT_2, MOTOR}, 
+										      {4, 0xF7, COMMAND_RIGHT_1, MOTOR}, 
+										      {4, 0xFD, COMMAND_RIGHT_2, MOTOR}};
 
 uchar out[9];
 
@@ -80,58 +80,11 @@ void uart_init()
 	ES   = 1;
 }
 
-/********************************************************************
-* name : uart_log_data(uchar n)
-* func : send debug data to serial port
-* in   : uchar
-* out  : void
-***********************************************************************/
-void uart_log_data(uchar log_data)
-{
-	ES = 0;
-	TI = 0;
-	SBUF = log_data;
-	while (!TI)
-	{
-		//will rest TI after send.
-	}
-	TI = 0;
-	ES = 1;
-}
-
-void uart_log_enter_char()
-{
-	uart_log_data(0x0d);
-	uart_log_data(0x0a);
-}
-
-
-void uart_log_debug_data(uchar log_data)
-{
-	uart_log_enter_char();
-	int converted_data;
-	uart_log_data(0x30);
-	uart_log_data(0x78);
-	int log_hex_data = log_data / 16;
-	log_hex_data = log_data % 16;
-	if (log_hex_data % 16 < 10)
-	{
-		converted_data = log_hex_data % 16 + 0x30;
-	}
-	else
-	{
-		converted_data = log_hex_data % 16 + 0x37;
-	}
-	uart_log_data(converted_data);
-	uart_log_data(' ');
-	uart_log_data(' ');
-	uart_log_enter_char();
-}
 void send_ps2_key_info()
 {
 	for (uchar i = 0; i < 9; i++)
 	{
-		uart_log_debug_data(out[i]);
+		uart_log_hex_data(out[i]);
 	}
 	uart_log_enter_char();
 }
@@ -189,7 +142,7 @@ uint *convert_commands()
 		if (out[command_map[i][0]] == command_map[i][1])
 		{
 			car_commands[i] = command_map[i][2];
-			uart_log_debug_data(command_map[i][2]);
+			uart_log_hex_data(command_map[i][2]);
 		}
 	}
 	return car_commands;

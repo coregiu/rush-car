@@ -11,10 +11,9 @@
 #ifndef COMMAND_DEFINE_H
 #define COMMAND_DEFINE_H
 
-#define uint unsigned int
-#define uchar unsigned char
-
 #define COMMANDS_LENGTH 12
+
+#include "log.h"
 
 // define swtich const var
 enum control_switch
@@ -40,6 +39,14 @@ enum car_commands
     COMMAND_RIGHT_2      = 12
 };
 
+// define module id
+enum module
+{
+    MOTOR   = 0,
+    MUSIC   = 1,
+    LED     = 2
+};
+
 // define led monitor
 #define LED_GROUP_MONITOR   P0
 #define LED_LEFT_TOP        P0_0
@@ -60,10 +67,5 @@ struct module_command_receiver
 extern uchar command_flag;
 
 extern void delay_time_ms(uint mil_sec);
-
-/**
- * send debug data to serial port
- */
-void uart_log_data(uchar log_data);
 
 #endif

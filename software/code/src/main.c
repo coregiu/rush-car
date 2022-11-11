@@ -27,19 +27,24 @@ void delay_time_ms(uint mil_sec)
  */
 void init_timer_0(void)
 {
-	//使用模式1，16位定时器，使用"|"符号可以在使用多个定时器时不受影响	
-	TMOD |= 0x01;
+	/*使用模式1，16位定时器，使用"|"符号可以在使用多个定时器时不受影响*/
+	TMOD |= 0x11;
 
-	//给定初值，这里使用定时器最大值从15536开始计数一直到65535溢出，周期50ms	     
+	/*给定初值，这里使用定时器最大值从15536开始计数一直到65535溢出，周期50ms*/
 	TH0 = READ_PS2_INTVAL_TIME_MS_H;
 	TL0 = READ_PS2_INTVAL_TIME_MS_L;
 
+	TH1 = READ_PS2_INTVAL_TIME_MS_H;
+ 	TL1 = READ_PS2_INTVAL_TIME_MS_L;
+
 	//总中断打开
 	EA = 1; 
-	//定时器中断打开
+	/* enable timer0 interrupt */
 	ET0 = 1; 
-	//定时器开关打开
 	TR0 = 1; 
+	/* enable timer1 interrupt */
+	ET1=1; 
+	TR1=1;  
 }
 
 void main()
@@ -49,6 +54,7 @@ void main()
 	init_timer_0();
 	init_modules();
 
+	uart_log_start_info();
 	while (1)
 	{
 
@@ -57,6 +63,7 @@ void main()
 
 /**
  * timer 0 interrupt function.
+ * read ps2 command and execute it by 50ms interval.
  */
 void timer_0_isr(void) __interrupt 1 //R1 R0    0/1  0/1  4
 {
@@ -66,4 +73,17 @@ void timer_0_isr(void) __interrupt 1 //R1 R0    0/1  0/1  4
 	
 	// read ps2 command and execute.
 	receive_exe_cmd(); 
+}
+
+/**
+ * timer 1 interrupt function.
+ * check motor status, if no motor command after 10 interval(500ms), stop the car.
+ */
+void timer_1_isr(void) __interrupt 3 //R1 R0    0/1  0/1  4
+{
+	TH1 = READ_PS2_INTVAL_TIME_MS_H;
+	TL1 = READ_PS2_INTVAL_TIME_MS_L;
+
+	// inspect motor status.
+	inspect_motor_cmd(); 
 }

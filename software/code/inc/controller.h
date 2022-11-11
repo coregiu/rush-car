@@ -32,6 +32,12 @@ void init_modules();
 void receive_exe_cmd();
 
 /**
+ * inspect motor status.
+ * if no motor command after 10 interval(500ms), stop the car.
+ */
+void inspect_motor_cmd(); 
+
+/**
  * notify modules to execute the commands.
  * 
  */

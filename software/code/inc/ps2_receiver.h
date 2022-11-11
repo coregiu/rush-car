@@ -43,6 +43,4 @@ void uart_init();
 
 uint* read_ps2();
 
-void uart_send_data(uchar send_data);
-
 #endif

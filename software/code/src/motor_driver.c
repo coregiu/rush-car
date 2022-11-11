@@ -123,50 +123,42 @@ void update_motor_state(int *car_cmds)
         switch (car_cmds[i])
         {
         case COMMAND_LEFT_TOP:
-            uart_log_data(49); // send 1
+            uart_log_data('1'); // send 1
             LED_LEFT_TOP = !LED_LEFT_TOP;
             exec_car_state_update(MOVE);
-            delay_time_ms(MOTOR_RUN_TIME_ONCE_MS);
-            stop();
             break;
         case COMMAND_LEFT_DOWN:
-            uart_log_data(50); // send 2
+            uart_log_data('2'); // send 2
             LED_LEFT_DOWN = !LED_LEFT_DOWN;
             exec_car_state_update(BACK);
-            delay_time_ms(MOTOR_RUN_TIME_ONCE_MS);
-            stop();
             break;
         case COMMAND_LEFT_LEFT:
-            uart_log_data(51); // send 3
+            uart_log_data('3'); // send 3
             LED_LEFT_LEFT = !LED_LEFT_LEFT;
             exec_car_state_update(LEFT);
-            delay_time_ms(MOTOR_RUN_TIME_ONCE_MS);
-            stop();
             break;
         case COMMAND_LEFT_RIGHT:
-            uart_log_data(52); // send 4
+            uart_log_data('4'); // send 4
             LED_LEFT_RIGHT = !LED_LEFT_RIGHT;
             exec_car_state_update(RIGHT);
-            delay_time_ms(MOTOR_RUN_TIME_ONCE_MS);
-            stop();
             break;
         case COMMAND_LEFT_1:
-            uart_log_data(57); // send 9
+            uart_log_data('9'); // send 9
             LED_LEFT_TOP = !LED_LEFT_TOP;
             exec_car_state_update(MOVE);
             break;
         case COMMAND_LEFT_2:
-            uart_log_data(65); // send A
+            uart_log_data('A'); // send A
             LED_LEFT_DOWN = !LED_LEFT_DOWN;
             stop();
             break;
         case COMMAND_RIGHT_1:
-            uart_log_data(66); // send B
+            uart_log_data('B'); // send B
             LED_LEFT_LEFT = !LED_LEFT_LEFT;
             exec_car_state_update(BACK);
             break;
         case COMMAND_RIGHT_2:
-            uart_log_data(67); // send C
+            uart_log_data('C'); // send C
             LED_LEFT_RIGHT = !LED_LEFT_RIGHT;
             stop();
             break;
