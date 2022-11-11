@@ -17,6 +17,7 @@
 #include <led_group.h>
 #include <motor_driver.h>
 #include <command_receiver.h>
+#include "pt.h"
 
 /**
  * init uart and all receive modules
@@ -25,17 +26,16 @@
 void init_modules();
 
 /**
- * receive ps2 data, convert to commands,
- * and notify modules to execute commands;
+ * execute commands;
  * 
  */
-void receive_exe_cmd();
+int execute_commands(struct pt *pt, int **commands);
 
 /**
  * inspect motor status.
  * if no motor command after 10 interval(500ms), stop the car.
  */
-void inspect_motor_cmd(); 
+int inspect_motor(struct pt *pt);
 
 /**
  * notify modules to execute the commands.

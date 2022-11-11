@@ -45,12 +45,12 @@ void update_led_state(uint car_cmd)
 {
     if (car_cmd == COMMAND_RIGHT_LEFT)
     {
-        uart_log_data('7');// send 7
+        uart_log_string_data("e:7"); // send 7
         LED_RIGHT_LEFT = !LED_RIGHT_LEFT;
         led_switch_on();
     } else if (car_cmd == COMMAND_RIGHT_RIGHT)
     {
-        uart_log_data('8');// send 8
+        uart_log_string_data("e:8"); // send 8
         LED_RIGHT_RIGHT = !LED_RIGHT_RIGHT;
         led_switch_off();
     }

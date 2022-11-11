@@ -46,39 +46,20 @@ out[6] 00——7F——FF 右摇杆从上到下
 /********vars of ps2*********/
 const uchar scan[9] = {0x01, 0x42, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 
-const uint command_map[COMMANDS_LENGTH][4] = {{3, 0xEF, COMMAND_LEFT_TOP,    MOTOR}, 
-										      {3, 0xBF, COMMAND_LEFT_DOWN,   MOTOR}, 
-										      {3, 0x7F, COMMAND_LEFT_LEFT,   MOTOR}, 
-										      {3, 0xDF, COMMAND_LEFT_RIGHT,  MOTOR}, 
-										      {4, 0xEF, COMMAND_RIGHT_TOP,   MUSIC}, 
-										      {4, 0xBF, COMMAND_RIGHT_DOWN,  MUSIC}, 
-										      {4, 0x7F, COMMAND_RIGHT_LEFT,  LED}, 
-										      {4, 0xDF, COMMAND_RIGHT_RIGHT, LED}, 
-										      {4, 0xFB, COMMAND_LEFT_1,      MOTOR}, 
-										      {4, 0xFE, COMMAND_LEFT_2,      MOTOR}, 
-										      {4, 0xF7, COMMAND_RIGHT_1,     MOTOR}, 
-										      {4, 0xFD, COMMAND_RIGHT_2,     MOTOR}};
+const uint command_map[COMMANDS_LENGTH][4] = {{3, 0xEF, COMMAND_LEFT_TOP,    MODULE_MOTOR}, 
+										      {3, 0xBF, COMMAND_LEFT_DOWN,   MODULE_MOTOR}, 
+										      {3, 0x7F, COMMAND_LEFT_LEFT,   MODULE_MOTOR}, 
+										      {3, 0xDF, COMMAND_LEFT_RIGHT,  MODULE_MOTOR}, 
+										      {4, 0xEF, COMMAND_RIGHT_TOP,   MODULE_MUSIC}, 
+										      {4, 0xBF, COMMAND_RIGHT_DOWN,  MODULE_MUSIC}, 
+										      {4, 0x7F, COMMAND_RIGHT_LEFT,  MODULE_LED}, 
+										      {4, 0xDF, COMMAND_RIGHT_RIGHT, MODULE_LED}, 
+										      {4, 0xFB, COMMAND_LEFT_1,      MODULE_MOTOR}, 
+										      {4, 0xFE, COMMAND_LEFT_2,      MODULE_MOTOR}, 
+										      {4, 0xF7, COMMAND_RIGHT_1,     MODULE_MOTOR}, 
+										      {4, 0xFD, COMMAND_RIGHT_2,     MODULE_MOTOR}};
 
 uchar out[9];
-
-/********************************************************************
-* name : void uart_init()
-* func : 串口设置
-* in   : 无
-* out  : 无
-***********************************************************************/
-void uart_init()
-{
-	TMOD = 0x20; //用定时器设置串口波特率	   9600
-	TH1  = 0xfd;
-	TL1  = 0xfd;
-	TR1  = 1;
-	REN  = 1; //串口初始化
-	SM0  = 0;
-	SM1  = 1;
-	EA   = 1; //开启总中断
-	ES   = 1;
-}
 
 void send_ps2_key_info()
 {
@@ -134,19 +115,26 @@ uchar scan_input_from_ps2(uchar command)
 * in   : void
 * out  : unit[]
 ***********************************************************************/
-uint **convert_commands()
+void convert_commands(uint **commands)
 {
-	uint car_commands[COMMANDS_LENGTH][2] = {{0}}; // default is COMMAND_NULL
+	is_has_command = 0;
 	for (char i = 0; i < COMMANDS_LENGTH; i++)
 	{
 		if (out[command_map[i][0]] == command_map[i][1])
 		{
-			car_commands[i][0] = command_map[i][2];
-			car_commands[i][1] = command_map[i][3];
+			commands[i][0] = command_map[i][2];
+			commands[i][1] = command_map[i][3];
+			uart_log_enter_char();
+			uart_log_string_data("p:");
 			uart_log_hex_data(command_map[i][2]);
+			is_has_command = 1;
 		}
 	}
-	return car_commands;
+
+	if (!is_has_command)
+	{
+		non_motor_cmd_times++;
+	}
 }
 
 /********************************************************************
@@ -155,7 +143,7 @@ uint **convert_commands()
 * in   : void
 * out  : unit[]
 ***********************************************************************/
-uint **read_ps2(void)
+void read_ps2(uint **commands)
 {
 	ATT = 0;
 	for (uchar i = 0; i < 9; i++) //scan keys
@@ -163,5 +151,5 @@ uint **read_ps2(void)
 		out[i] = scan_input_from_ps2(scan[i]);
 	}
 	ATT = 1;
-	return convert_commands();
+	convert_commands(commands);
 }
