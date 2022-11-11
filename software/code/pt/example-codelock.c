@@ -68,8 +68,11 @@
  * used in this example. The actual implementation of the functions
  * can be found at the end of this file.
  */
-struct timer { int start, interval; };
-static int  timer_expired(struct timer *t);
+struct timer
+{
+	int start, interval;
+};
+static int timer_expired(struct timer *t);
 static void timer_set(struct timer *t, int usecs);
 /*---------------------------------------------------------------------------*/
 /*
@@ -102,19 +105,20 @@ static char key, key_pressed_flag;
 static void
 press_key(char k)
 {
-  printf("--- Key '%c' pressed\n", k);
-  key = k;
-  key_pressed_flag = 1;
+	printf("--- Key '%c' pressed\n", k);
+	key = k;
+	key_pressed_flag = 1;
 }
 
 static int
 key_pressed(void)
 {
-  if(key_pressed_flag != 0) {
-    key_pressed_flag = 0;
-    return 1;
-  }
-  return 0;
+	if (key_pressed_flag != 0)
+	{
+		key_pressed_flag = 0;
+		return 1;
+	}
+	return 0;
 }
 /*---------------------------------------------------------------------------*/
 /*
@@ -125,97 +129,106 @@ key_pressed(void)
  * and it takes one argument, pt, of the type struct pt.
  *
  */
-static
-PT_THREAD(codelock_thread(struct pt *pt))
+static PT_THREAD(codelock_thread(struct pt *pt))
 {
-  /* This is a local variable that holds the number of keys that have
+	/* This is a local variable that holds the number of keys that have
    * been pressed. Note that it is declared with the "static" keyword
    * to make sure that the variable is *not* allocated on the stack.
    */
-  static int keys;
+	static int keys;
 
-  /*
+	/*
    * Declare the beginning of the protothread.
    */
-  PT_BEGIN(pt);
+	PT_BEGIN(pt);
 
-  /*
+	/*
    * We'll let the protothread loop until the protothread is
    * expliticly exited with PT_EXIT().
    */
-  while(1) {
+	while (1)
+	{
 
-    /*
+		/*
      * We'll be reading key presses until we get the right amount of
      * correct keys.
-     */ 
-    for(keys = 0; keys < sizeof(code); ++keys) {
+     */
+		for (keys = 0; keys < sizeof(code); ++keys)
+		{
 
-      /*
+			/*
        * If we haven't gotten any keypresses, we'll simply wait for one.
        */
-      if(keys == 0) {
+			if (keys == 0)
+			{
 
-	/*
+				/*
 	 * The PT_WAIT_UNTIL() function will block until the condition
 	 * key_pressed() is true.
 	 */
-	PT_WAIT_UNTIL(pt, key_pressed());
-      } else {
-	
-	/*
+				PT_WAIT_UNTIL(pt, key_pressed());
+			}
+			else
+			{
+
+				/*
 	 * If the "key" variable was larger than zero, we have already
 	 * gotten at least one correct key press. If so, we'll not
 	 * only wait for the next key, but we'll also set a timer that
 	 * expires in one second. This gives the person pressing the
 	 * keys one second to press the next key in the code.
 	 */
-	timer_set(&codelock_timer, 1000);
+				timer_set(&codelock_timer, 1000);
 
-	/*
+				/*
 	 * The following statement shows how complex blocking
 	 * conditions can be easily expressed with protothreads and
 	 * the PT_WAIT_UNTIL() function.
 	 */
-	PT_WAIT_UNTIL(pt, key_pressed() || timer_expired(&codelock_timer));
+				PT_WAIT_UNTIL(pt, key_pressed() || timer_expired(&codelock_timer));
 
-	/*
+				/*
 	 * If the timer expired, we should break out of the for() loop
 	 * and start reading keys from the beginning of the while(1)
 	 * loop instead.
 	 */
-	if(timer_expired(&codelock_timer)) {
-	  printf("Code lock timer expired.\n");
-	  
-	  /*
+				if (timer_expired(&codelock_timer))
+				{
+					printf("Code lock timer expired.\n");
+
+					/*
 	   * Break out from the for() loop and start from the
 	   * beginning of the while(1) loop.
 	   */
-	  break;
-	}
-      }
+					break;
+				}
+			}
 
-      /*
+			/*
        * Check if the pressed key was correct.
        */
-      if(key != code[keys]) {
-	printf("Incorrect key '%c' found\n", key);
-	/*
+			if (key != code[keys])
+			{
+				printf("Incorrect key '%c' found\n", key);
+				/*
 	 * Break out of the for() loop since the key was incorrect.
 	 */
-	break;
-      } else {
-	printf("Correct key '%c' found\n", key);
-      }
-    }
+				break;
+			}
+			else
+			{
+				printf("Correct key '%c' found\n", key);
+			}
+		}
 
-    /*
+		/*
      * Check if we have gotten all keys.
      */
-    if(keys == sizeof(code)) {
-      printf("Correct code entered, waiting for 500 ms before unlocking.\n");
+		if (keys == sizeof(code))
+		{
+			printf("Correct code entered, waiting for 500 ms before unlocking.\n");
 
-      /*
+			/*
        * Ok, we got the correct code. But to make sure that the code
        * was not just a fluke of luck by an intruder, but the correct
        * code entered by a person that knows the correct code, we'll
@@ -224,31 +237,34 @@ PT_THREAD(codelock_thread(struct pt *pt))
        * fluke of luck that the correct code was entered the first
        * time.
        */
-      timer_set(&codelock_timer, 500);      
-      PT_WAIT_UNTIL(pt, key_pressed() || timer_expired(&codelock_timer));
+			timer_set(&codelock_timer, 500);
+			PT_WAIT_UNTIL(pt, key_pressed() || timer_expired(&codelock_timer));
 
-      /*
+			/*
        * If we continued from the PT_WAIT_UNTIL() statement without
        * the timer expired, we don't open the lock.
        */
-      if(!timer_expired(&codelock_timer)) {
-	printf("Key pressed during final wait, code lock locked again.\n");
-      } else {
+			if (!timer_expired(&codelock_timer))
+			{
+				printf("Key pressed during final wait, code lock locked again.\n");
+			}
+			else
+			{
 
-	/*
+				/*
 	 * If the timer expired, we'll open the lock and exit from the
 	 * protothread.
 	 */
-	printf("Code lock unlocked.\n");
-	PT_EXIT(pt);
-      }
-    }
-  }
+				printf("Code lock unlocked.\n");
+				PT_EXIT(pt);
+			}
+		}
+	}
 
-  /*
+	/*
    * Finally, we'll mark the end of the protothread.
    */
-  PT_END(pt);
+	PT_END(pt);
 }
 /*---------------------------------------------------------------------------*/
 /*
@@ -257,97 +273,96 @@ PT_THREAD(codelock_thread(struct pt *pt))
  * sequence of timed instructions can be implemented with
  * protothreads.
  */
-static
-PT_THREAD(input_thread(struct pt *pt))
+static PT_THREAD(input_thread(struct pt *pt))
 {
-  PT_BEGIN(pt);
+	PT_BEGIN(pt);
 
-  printf("Waiting 1 second before entering first key.\n");
-  
-  timer_set(&input_timer, 1000);
-  PT_WAIT_UNTIL(pt, timer_expired(&input_timer));
+	printf("Waiting 1 second before entering first key.\n");
 
-  press_key('1');
-  
-  timer_set(&input_timer, 100);
-  PT_WAIT_UNTIL(pt, timer_expired(&input_timer));
-  
-  press_key('2');
+	timer_set(&input_timer, 1000);
+	PT_WAIT_UNTIL(pt, timer_expired(&input_timer));
 
-  timer_set(&input_timer, 100);
-  PT_WAIT_UNTIL(pt, timer_expired(&input_timer));
-  
-  press_key('3');
+	press_key('1');
 
-  timer_set(&input_timer, 2000);
-  PT_WAIT_UNTIL(pt, timer_expired(&input_timer));
-  
-  press_key('1');
+	timer_set(&input_timer, 100);
+	PT_WAIT_UNTIL(pt, timer_expired(&input_timer));
 
-  timer_set(&input_timer, 200);
-  PT_WAIT_UNTIL(pt, timer_expired(&input_timer));
-  
-  press_key('4');
+	press_key('2');
 
-  timer_set(&input_timer, 200);
-  PT_WAIT_UNTIL(pt, timer_expired(&input_timer));
-  
-  press_key('2');
-  
-  timer_set(&input_timer, 2000);
-  PT_WAIT_UNTIL(pt, timer_expired(&input_timer));
-  
-  press_key('3');
+	timer_set(&input_timer, 100);
+	PT_WAIT_UNTIL(pt, timer_expired(&input_timer));
 
-  timer_set(&input_timer, 200);
-  PT_WAIT_UNTIL(pt, timer_expired(&input_timer));
-  
-  press_key('1');
+	press_key('3');
 
-  timer_set(&input_timer, 200);
-  PT_WAIT_UNTIL(pt, timer_expired(&input_timer));
-  
-  press_key('4');
+	timer_set(&input_timer, 2000);
+	PT_WAIT_UNTIL(pt, timer_expired(&input_timer));
 
-  timer_set(&input_timer, 200);
-  PT_WAIT_UNTIL(pt, timer_expired(&input_timer));
-  
-  press_key('2');
-  
-  timer_set(&input_timer, 100);
-  PT_WAIT_UNTIL(pt, timer_expired(&input_timer));
-  
-  press_key('3');
+	press_key('1');
 
-  timer_set(&input_timer, 100);
-  PT_WAIT_UNTIL(pt, timer_expired(&input_timer));
-  
-  press_key('4');
+	timer_set(&input_timer, 200);
+	PT_WAIT_UNTIL(pt, timer_expired(&input_timer));
 
-  timer_set(&input_timer, 1500);
-  PT_WAIT_UNTIL(pt, timer_expired(&input_timer));
-  
-  press_key('1');
+	press_key('4');
 
-  timer_set(&input_timer, 300);
-  PT_WAIT_UNTIL(pt, timer_expired(&input_timer));
-  
-  press_key('4');
+	timer_set(&input_timer, 200);
+	PT_WAIT_UNTIL(pt, timer_expired(&input_timer));
 
-  timer_set(&input_timer, 400);
-  PT_WAIT_UNTIL(pt, timer_expired(&input_timer));
-  
-  press_key('2');
+	press_key('2');
 
-  timer_set(&input_timer, 500);
-  PT_WAIT_UNTIL(pt, timer_expired(&input_timer));
-  
-  press_key('3');
+	timer_set(&input_timer, 2000);
+	PT_WAIT_UNTIL(pt, timer_expired(&input_timer));
 
-  timer_set(&input_timer, 2000);
-  PT_WAIT_UNTIL(pt, timer_expired(&input_timer));
-  
-  PT_END(pt);
+	press_key('3');
+
+	timer_set(&input_timer, 200);
+	PT_WAIT_UNTIL(pt, timer_expired(&input_timer));
+
+	press_key('1');
+
+	timer_set(&input_timer, 200);
+	PT_WAIT_UNTIL(pt, timer_expired(&input_timer));
+
+	press_key('4');
+
+	timer_set(&input_timer, 200);
+	PT_WAIT_UNTIL(pt, timer_expired(&input_timer));
+
+	press_key('2');
+
+	timer_set(&input_timer, 100);
+	PT_WAIT_UNTIL(pt, timer_expired(&input_timer));
+
+	press_key('3');
+
+	timer_set(&input_timer, 100);
+	PT_WAIT_UNTIL(pt, timer_expired(&input_timer));
+
+	press_key('4');
+
+	timer_set(&input_timer, 1500);
+	PT_WAIT_UNTIL(pt, timer_expired(&input_timer));
+
+	press_key('1');
+
+	timer_set(&input_timer, 300);
+	PT_WAIT_UNTIL(pt, timer_expired(&input_timer));
+
+	press_key('4');
+
+	timer_set(&input_timer, 400);
+	PT_WAIT_UNTIL(pt, timer_expired(&input_timer));
+
+	press_key('2');
+
+	timer_set(&input_timer, 500);
+	PT_WAIT_UNTIL(pt, timer_expired(&input_timer));
+
+	press_key('3');
+
+	timer_set(&input_timer, 2000);
+	PT_WAIT_UNTIL(pt, timer_expired(&input_timer));
+
+	PT_END(pt);
 }
 /*---------------------------------------------------------------------------*/
 /*
@@ -355,35 +370,35 @@ PT_THREAD(input_thread(struct pt *pt))
  * control structures and schedules the two protothreads. The main
  * function returns when the protothread the runs the code lock exits.
  */
-int
-main(void)
+int main(void)
 {
-  /*
+	/*
    * Initialize the two protothread control structures.
    */
-  PT_INIT(&input_pt);
-  PT_INIT(&codelock_pt);
+	PT_INIT(&input_pt);
+	PT_INIT(&codelock_pt);
 
-  /*
+	/*
    * Schedule the two protothreads until the codelock_thread() exits.
    */
-  while(PT_SCHEDULE(codelock_thread(&codelock_pt))) {
-    PT_SCHEDULE(input_thread(&input_pt));
-    
-    /*
+	while (PT_SCHEDULE(codelock_thread(&codelock_pt)))
+	{
+		PT_SCHEDULE(input_thread(&input_pt));
+
+		/*
      * When running this example on a multitasking system, we must
      * give other processes a chance to run too and therefore we call
      * usleep() resp. Sleep() here. On a dedicated embedded system,
      * we usually do not need to do this.
      */
 #ifdef _WIN32
-    Sleep(0);
+		Sleep(0);
 #else
-    usleep(10);
+		usleep(10);
 #endif
-  }
+	}
 
-  return 0;
+	return 0;
 }
 /*---------------------------------------------------------------------------*/
 /*
@@ -392,23 +407,30 @@ main(void)
 #ifdef _WIN32
 
 static int clock_time(void)
-{ return (int)GetTickCount(); }
+{
+	return (int)GetTickCount();
+}
 
 #else /* _WIN32 */
 
 static int clock_time(void)
 {
-  struct timeval tv;
-  struct timezone tz;   
-  gettimeofday(&tv, &tz); 
-  return tv.tv_sec * 1000 + tv.tv_usec / 1000;
+	struct timeval tv;
+	struct timezone tz;
+	gettimeofday(&tv, &tz);
+	return tv.tv_sec * 1000 + tv.tv_usec / 1000;
 }
 
 #endif /* _WIN32 */
 
 static int timer_expired(struct timer *t)
-{ return (int)(clock_time() - t->start) >= (int)t->interval; }
+{
+	return (int)(clock_time() - t->start) >= (int)t->interval;
+}
 
 static void timer_set(struct timer *t, int interval)
-{ t->interval = interval; t->start = clock_time(); }
+{
+	t->interval = interval;
+	t->start = clock_time();
+}
 /*---------------------------------------------------------------------------*/

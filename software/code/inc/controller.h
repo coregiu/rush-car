@@ -39,8 +39,10 @@ void inspect_motor_cmd();
 
 /**
  * notify modules to execute the commands.
+ * car_module: the module of car, such as motor, music, led
+ * car_cmd: the command
  * 
  */
-void notify_all(uint *car_cmds);
+void notify_all(enum module car_module, uint car_cmd);
 
 #endif

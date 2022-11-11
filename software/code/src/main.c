@@ -25,7 +25,7 @@ void delay_time_ms(uint mil_sec)
 /**
  * init timer 0.
  */
-void init_timer_0(void)
+void init_timer(void)
 {
 	/*使用模式1，16位定时器，使用"|"符号可以在使用多个定时器时不受影响*/
 	TMOD |= 0x11;
@@ -51,7 +51,7 @@ void main()
 {
 	delay_time_ms(500);
 
-	init_timer_0();
+	init_timer();
 	init_modules();
 
 	uart_log_start_info();

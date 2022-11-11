@@ -61,10 +61,10 @@ enum module
 struct module_command_receiver
 {
 	void (*init)();
-	void (*update_state)(int *car_cmds);
+	void (*update_state)(uint car_cmd);
 };
 
-extern uchar command_flag;
+static uint non_motor_cmd_times = 0;
 
 extern void delay_time_ms(uint mil_sec);
 

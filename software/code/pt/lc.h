@@ -119,7 +119,6 @@
 #ifndef __LC_H__
 #define __LC_H__
 
-
 #ifdef LC_INCLUDE
 #include LC_INCLUDE
 #else

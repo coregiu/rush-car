@@ -41,21 +41,18 @@ void led_switch_off()
 }
 
 
-void update_led_state(int *car_cmds)
+void update_led_state(uint car_cmd)
 {
-    for (char i = 0; i < COMMANDS_LENGTH; i++)
+    if (car_cmd == COMMAND_RIGHT_LEFT)
     {
-        if (car_cmds[i] == COMMAND_RIGHT_LEFT)
-        {
-            uart_log_data('7');// send 7
-            LED_RIGHT_LEFT = !LED_RIGHT_LEFT;
-            led_switch_on();
-        } else if (car_cmds[i] == COMMAND_RIGHT_RIGHT)
-        {
-            uart_log_data('8');// send 8
-            LED_RIGHT_RIGHT = !LED_RIGHT_RIGHT;
-            led_switch_off();
-        }
+        uart_log_data('7');// send 7
+        LED_RIGHT_LEFT = !LED_RIGHT_LEFT;
+        led_switch_on();
+    } else if (car_cmd == COMMAND_RIGHT_RIGHT)
+    {
+        uart_log_data('8');// send 8
+        LED_RIGHT_RIGHT = !LED_RIGHT_RIGHT;
+        led_switch_off();
     }
 }
 

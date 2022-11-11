@@ -41,6 +41,6 @@ out[6] 00——7F——FF 右摇杆从上到下
 
 void uart_init();
 
-uint* read_ps2();
+uint** read_ps2();
 
 #endif

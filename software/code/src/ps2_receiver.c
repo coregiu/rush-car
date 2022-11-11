@@ -46,18 +46,18 @@ out[6] 00——7F——FF 右摇杆从上到下
 /********vars of ps2*********/
 const uchar scan[9] = {0x01, 0x42, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 
-const uint command_map[COMMANDS_LENGTH][4] = {{3, 0xEF, COMMAND_LEFT_TOP, MOTOR}, 
-										      {3, 0xBF, COMMAND_LEFT_DOWN, MOTOR}, 
-										      {3, 0x7F, COMMAND_LEFT_LEFT, MOTOR}, 
-										      {3, 0xDF, COMMAND_LEFT_RIGHT, MOTOR}, 
-										      {4, 0xEF, COMMAND_RIGHT_TOP, MUSIC}, 
-										      {4, 0xBF, COMMAND_RIGHT_DOWN, MUSIC}, 
-										      {4, 0x7F, COMMAND_RIGHT_LEFT, LED}, 
+const uint command_map[COMMANDS_LENGTH][4] = {{3, 0xEF, COMMAND_LEFT_TOP,    MOTOR}, 
+										      {3, 0xBF, COMMAND_LEFT_DOWN,   MOTOR}, 
+										      {3, 0x7F, COMMAND_LEFT_LEFT,   MOTOR}, 
+										      {3, 0xDF, COMMAND_LEFT_RIGHT,  MOTOR}, 
+										      {4, 0xEF, COMMAND_RIGHT_TOP,   MUSIC}, 
+										      {4, 0xBF, COMMAND_RIGHT_DOWN,  MUSIC}, 
+										      {4, 0x7F, COMMAND_RIGHT_LEFT,  LED}, 
 										      {4, 0xDF, COMMAND_RIGHT_RIGHT, LED}, 
-										      {4, 0xFB, COMMAND_LEFT_1, MOTOR}, 
-										      {4, 0xFE, COMMAND_LEFT_2, MOTOR}, 
-										      {4, 0xF7, COMMAND_RIGHT_1, MOTOR}, 
-										      {4, 0xFD, COMMAND_RIGHT_2, MOTOR}};
+										      {4, 0xFB, COMMAND_LEFT_1,      MOTOR}, 
+										      {4, 0xFE, COMMAND_LEFT_2,      MOTOR}, 
+										      {4, 0xF7, COMMAND_RIGHT_1,     MOTOR}, 
+										      {4, 0xFD, COMMAND_RIGHT_2,     MOTOR}};
 
 uchar out[9];
 
@@ -134,14 +134,15 @@ uchar scan_input_from_ps2(uchar command)
 * in   : void
 * out  : unit[]
 ***********************************************************************/
-uint *convert_commands()
+uint **convert_commands()
 {
-	uint car_commands[COMMANDS_LENGTH] = {0}; // default is COMMAND_NULL
+	uint car_commands[COMMANDS_LENGTH][2] = {{0}}; // default is COMMAND_NULL
 	for (char i = 0; i < COMMANDS_LENGTH; i++)
 	{
 		if (out[command_map[i][0]] == command_map[i][1])
 		{
-			car_commands[i] = command_map[i][2];
+			car_commands[i][0] = command_map[i][2];
+			car_commands[i][1] = command_map[i][3];
 			uart_log_hex_data(command_map[i][2]);
 		}
 	}
@@ -154,7 +155,7 @@ uint *convert_commands()
 * in   : void
 * out  : unit[]
 ***********************************************************************/
-uint *read_ps2(void)
+uint **read_ps2(void)
 {
 	ATT = 0;
 	for (uchar i = 0; i < 9; i++) //scan keys

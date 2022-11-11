@@ -148,7 +148,7 @@ PT_THREAD(driver_thread(struct pt *pt))
  * 
  *
  */
-   
+
 /**
  * \file
  * Couting semaphores implemented on protothreads
@@ -162,8 +162,9 @@ PT_THREAD(driver_thread(struct pt *pt))
 
 #include "pt.h"
 
-struct pt_sem {
-  unsigned int count;
+struct pt_sem
+{
+	unsigned int count;
 };
 
 /**
@@ -198,11 +199,12 @@ struct pt_sem {
  *
  * \hideinitializer
  */
-#define PT_SEM_WAIT(pt, s)	\
-  do {						\
-    PT_WAIT_UNTIL(pt, (s)->count > 0);		\
-    --(s)->count;				\
-  } while(0)
+#define PT_SEM_WAIT(pt, s)                 \
+	do                                     \
+	{                                      \
+		PT_WAIT_UNTIL(pt, (s)->count > 0); \
+		--(s)->count;                      \
+	} while (0)
 
 /**
  * Signal a semaphore
@@ -225,4 +227,3 @@ struct pt_sem {
 
 /** @} */
 /** @} */
-   

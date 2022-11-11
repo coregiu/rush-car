@@ -116,11 +116,9 @@ void init_motor_switch()
     exec_car_state_update(STOP);
 }
 
-void update_motor_state(int *car_cmds)
+void update_motor_state(uint car_cmd)
 {
-    for (char i = 0; i < COMMANDS_LENGTH; i++)
-    {
-        switch (car_cmds[i])
+    switch (car_cmd)
         {
         case COMMAND_LEFT_TOP:
             uart_log_data('1'); // send 1
@@ -165,7 +163,6 @@ void update_motor_state(int *car_cmds)
         default:
             break;
         }
-    }
 }
 
 const struct module_command_receiver motor_driver = {init_motor_switch, update_motor_state};
