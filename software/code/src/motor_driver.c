@@ -60,17 +60,6 @@
 #include <motor_driver.h>
 #include <mcs51/8051.h>
 
-const uint MOTOR_RUN_TIME_ONCE_MS = 500;
-
-// check is need stop the car by the inspect_motor function.
-uchar is_need_stop_auto = 0;
-
-// CAR run state
-enum car_run_state
-{
-    STOP = 0, MOVE = 1, BACK = 2, LEFT = 3, RIGHT = 4
-} current_car_run_state = STOP;
-
 // the position of gpio in CAR_STATE_LIST array.
 enum gpio_position
 {
@@ -93,16 +82,12 @@ void stop()
 {
     LEFT_EN  = CAR_STATE_LIST[STOP][LEFT_EN_POSITION];
     RIGHT_EN = CAR_STATE_LIST[STOP][RIGHT_EN_POSITION];
+    g_car_status.current_car_status == STOP;
 }
 
 void exec_car_state_update(enum car_run_state run_state)
 {
-    if (current_car_run_state == run_state)
-    {
-        LEFT_EN  = CAR_STATE_LIST[run_state][LEFT_EN_POSITION];
-        RIGHT_EN = CAR_STATE_LIST[run_state][RIGHT_EN_POSITION];
-    }
-    else 
+    if (g_car_status.current_car_status != run_state)
     {
         LEFT_EN  = CAR_STATE_LIST[run_state][LEFT_EN_POSITION];
         LEFT_MV  = CAR_STATE_LIST[run_state][LEFT_MV_POSITION];
@@ -110,7 +95,7 @@ void exec_car_state_update(enum car_run_state run_state)
         RIGHT_EN = CAR_STATE_LIST[run_state][RIGHT_EN_POSITION];
         RIGHT_MV = CAR_STATE_LIST[run_state][RIGHT_MV_POSITION];
         RIGHT_BK = CAR_STATE_LIST[run_state][RIGHT_BK_POSITION];
-        current_car_run_state == run_state;
+        g_car_status.current_car_status == run_state;
     }
 }
 
@@ -127,25 +112,25 @@ void update_motor_state(uint car_cmd)
             // uart_log_string_data("e:1"); // send 1
             LED_LEFT_TOP = !LED_LEFT_TOP;
             exec_car_state_update(MOVE);
-            is_need_stop_auto = 1;
+            g_car_status.is_need_stop_auto = 1;
             break;
         case COMMAND_LEFT_DOWN:
             // uart_log_string_data("e:2"); // send 2
             LED_LEFT_DOWN = !LED_LEFT_DOWN;
             exec_car_state_update(BACK);
-            is_need_stop_auto = 1;
+            g_car_status.is_need_stop_auto = 1;
             break;
         case COMMAND_LEFT_LEFT:
             // uart_log_string_data("e:3"); // send 3
             LED_LEFT_LEFT = !LED_LEFT_LEFT;
             exec_car_state_update(LEFT);
-            is_need_stop_auto = 1;
+            g_car_status.is_need_stop_auto = 1;
             break;
         case COMMAND_LEFT_RIGHT:
             // uart_log_string_data("e:4"); // send 4
             LED_LEFT_RIGHT = !LED_LEFT_RIGHT;
             exec_car_state_update(RIGHT);
-            is_need_stop_auto = 1;
+            g_car_status.is_need_stop_auto = 1;
             break;
         case COMMAND_LEFT_1:
             // uart_log_string_data("e:9"); // send 9

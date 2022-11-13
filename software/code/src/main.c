@@ -10,12 +10,14 @@
 
 #include <controller.h>
 /* 71ms per period */
-#define READ_PS2_INTVAL_TIME_MS_H 0X00
-#define READ_PS2_INTVAL_TIME_MS_L 0X00
+#define READ_PS2_INTVAL_TIME_MS_H   0X00
+#define READ_PS2_INTVAL_TIME_MS_L   0X00
+#define INTERVAL_OF_COMMAND_READING 10
+
+const struct car_config g_car_config = {INTERVAL_OF_COMMAND_READING};
 
 struct pt pt_cmd_receiver, pt_motor_inspector;
-uint non_motor_cmd_times = 0;
-uchar is_has_command = 0;
+struct car_status g_car_status = {STOP, 0, 0, 0};
 
 void delay_time_ms(uint mil_sec)
 {
@@ -76,7 +78,7 @@ void main()
  * timer 0 interrupt function.
  * read ps2 command and execute it by 50ms interval.
  */
-void time0_exe(void) __interrupt 1
+void time_0_isr(void) __interrupt 1
 {
 	// reset number of beginning.
 	TH0 = READ_PS2_INTVAL_TIME_MS_H;

@@ -43,17 +43,17 @@ void music_switch_off()
 void update_music_state(uint car_cmd)
 {
     if (car_cmd == COMMAND_RIGHT_TOP)
-        {
-            // uart_log_string_data("e:5");// send 5
-            LED_RIGHT_TOP = !LED_RIGHT_TOP;
-            music_switch_on();
-        }
-        else if (car_cmd == COMMAND_RIGHT_DOWN) 
-        {
-            // uart_log_string_data("e:6"); // send 6
-            LED_RIGHT_DOWN = !LED_RIGHT_DOWN;
-            music_switch_off();
-        }
+    {
+        // uart_log_string_data("e:5");// send 5
+        LED_RIGHT_TOP = !LED_RIGHT_TOP;
+        music_switch_on();
+    }
+    else if (car_cmd == COMMAND_RIGHT_DOWN) 
+    {
+        // uart_log_string_data("e:6"); // send 6
+        LED_RIGHT_DOWN = !LED_RIGHT_DOWN;
+        music_switch_off();
+    }
 }
 
 const struct module_command_receiver music_switch = {init_music_switch, update_music_state};

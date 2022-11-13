@@ -15,6 +15,17 @@
 
 #include "log.h"
 
+// define led monitor
+#define LED_GROUP_MONITOR   P0
+#define LED_LEFT_TOP        P0_0
+#define LED_LEFT_DOWN       P0_1
+#define LED_LEFT_LEFT       P0_2
+#define LED_LEFT_RIGHT      P0_3
+#define LED_RIGHT_TOP       P0_4
+#define LED_RIGHT_DOWN      P0_5
+#define LED_RIGHT_LEFT      P0_6
+#define LED_RIGHT_RIGHT     P0_7
+
 // define swtich const var
 enum control_switch
 {
@@ -47,25 +58,44 @@ enum module
     MODULE_LED     = 2
 };
 
-// define led monitor
-#define LED_GROUP_MONITOR   P0
-#define LED_LEFT_TOP        P0_0
-#define LED_LEFT_DOWN       P0_1
-#define LED_LEFT_LEFT       P0_2
-#define LED_LEFT_RIGHT      P0_3
-#define LED_RIGHT_TOP       P0_4
-#define LED_RIGHT_DOWN      P0_5
-#define LED_RIGHT_LEFT      P0_6
-#define LED_RIGHT_RIGHT     P0_7
+// CAR run state
+enum car_run_state
+{
+    STOP = 0, MOVE = 1, BACK = 2, LEFT = 3, RIGHT = 4
+};
+
+// current global status of car.
+struct car_status
+{
+	// motor status of current car
+	enum car_run_state current_car_status;
+
+	// check is need stop the car by the inspect_motor function.
+	uchar is_need_stop_auto;
+
+	// times of commands without motor.
+	uint non_motor_cmd_times;
+	
+	// if thereis a command.
+	uchar is_has_command;
+};
+
+extern struct car_status g_car_status;
+
+// the main configuration of car.
+struct car_config
+{
+	// 50ms per time. dafault 10 times, equals 0.5 second.
+	uchar car_run_delay_times;
+};
+
+extern const struct car_config g_car_config;
 
 struct module_command_receiver
 {
 	void (*init)();
 	void (*update_state)(uint car_cmd);
 };
-
-extern uint non_motor_cmd_times;
-extern uchar is_has_command;
 
 extern void delay_time_ms(uint mil_sec);
 

@@ -117,7 +117,7 @@ uchar scan_input_from_ps2(uchar command)
 ***********************************************************************/
 void convert_commands(uint **commands)
 {
-	is_has_command = 0;
+	g_car_status.is_has_command = 0;
 	for (char i = 0; i < COMMANDS_LENGTH; i++)
 	{
 		if (out[command_map[i][0]] == command_map[i][1])
@@ -127,13 +127,13 @@ void convert_commands(uint **commands)
 			// uart_log_enter_char();
 			// uart_log_string_data("p:");
 			// uart_log_hex_data(command_map[i][2]);
-			is_has_command = 1;
+			g_car_status.is_has_command = 1;
 		}
 	}
 
-	if (!is_has_command)
+	if (!g_car_status.is_has_command)
 	{
-		non_motor_cmd_times++;
+		g_car_status.non_motor_cmd_times++;
 	}
 }
 
