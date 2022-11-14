@@ -87,6 +87,8 @@ struct car_config
 {
 	// 50ms per time. dafault 10 times, equals 0.5 second.
 	uchar car_run_delay_times;
+  uchar interval_of_read_ps2_h;
+  uchar interval_of_read_ps2_l;
 };
 
 extern const struct car_config g_car_config;

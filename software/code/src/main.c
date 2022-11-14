@@ -10,11 +10,11 @@
 
 #include <controller.h>
 /* 71ms per period */
+#define DEFAULT_CAR_RUN_DELAY_TIMES 10
 #define READ_PS2_INTVAL_TIME_MS_H   0X00
 #define READ_PS2_INTVAL_TIME_MS_L   0X00
-#define INTERVAL_OF_COMMAND_READING 10
 
-const struct car_config g_car_config = {INTERVAL_OF_COMMAND_READING};
+const struct car_config g_car_config = {DEFAULT_CAR_RUN_DELAY_TIMES, READ_PS2_INTVAL_TIME_MS_H, READ_PS2_INTVAL_TIME_MS_L};
 
 struct pt pt_cmd_receiver, pt_motor_inspector;
 struct car_status g_car_status = {STOP, 0, 0, 0};
@@ -36,8 +36,8 @@ void init_timer()
 	TMOD |= 0X01;
 	ET0 = 1;
     TR0 = 1;
-    TH0 = READ_PS2_INTVAL_TIME_MS_H;
-    TL0 = READ_PS2_INTVAL_TIME_MS_L; 
+    TH0 = g_car_config.interval_of_read_ps2_h;
+    TL0 = g_car_config.interval_of_read_ps2_l; 
 	EA  = 1; //¿ªÆô×ÜÖÐ¶Ï
 }
 
@@ -81,8 +81,8 @@ void main()
 void time_0_isr(void) __interrupt 1
 {
 	// reset number of beginning.
-	TH0 = READ_PS2_INTVAL_TIME_MS_H;
-	TL0 = READ_PS2_INTVAL_TIME_MS_L;
+	TH0 = g_car_config.interval_of_read_ps2_h;
+	TL0 = g_car_config.interval_of_read_ps2_l;
 	
 	// read ps2 command and set is_has_command/non_motor_cmd_times value.
 	uint commands[COMMANDS_LENGTH][2] = {{0}};
