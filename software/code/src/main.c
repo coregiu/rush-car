@@ -10,14 +10,19 @@
 
 #include <controller.h>
 /* 71ms per period */
-#define DEFAULT_CAR_RUN_DELAY_TIMES 10
+#define DEFAULT_CAR_RUN_DELAY_TIMES 1
 #define READ_PS2_INTVAL_TIME_MS_H   0X00
 #define READ_PS2_INTVAL_TIME_MS_L   0X00
 
 const struct car_config g_car_config = {DEFAULT_CAR_RUN_DELAY_TIMES, READ_PS2_INTVAL_TIME_MS_H, READ_PS2_INTVAL_TIME_MS_L};
 
+const uchar EXE_PERIODS = 5;
+
 struct pt pt_cmd_receiver, pt_motor_inspector;
 struct car_status g_car_status = {STOP, 0, 0, 0};
+
+// delay times for timer 0. 3 times for a execute period, equals 200ms.
+uchar delayTimes = 0;
 
 void delay_time_ms(uint mil_sec)
 {
@@ -80,6 +85,12 @@ void main()
  */
 void time_0_isr(void) __interrupt 1
 {
+	if (delayTimes < EXE_PERIODS)
+	{
+		delayTimes++;
+		return;
+	}
+
 	// reset number of beginning.
 	TH0 = g_car_config.interval_of_read_ps2_h;
 	TL0 = g_car_config.interval_of_read_ps2_l;
@@ -90,5 +101,6 @@ void time_0_isr(void) __interrupt 1
 	// executet the commands.
 	execute_commands(&pt_cmd_receiver, commands); 
 	// inspect motor status.
-	inspect_motor(&pt_motor_inspector); 
+	inspect_motor(&pt_motor_inspector);
+	delayTimes = 0;
 }

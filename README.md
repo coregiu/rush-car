@@ -55,6 +55,12 @@ RUCAR是利用51单片机、L298N电机驱动、PS2手柄、音乐芯片、PWM�
 
 ## 成品效果
 
+##### 视频
+
+https://www.bilibili.com/video/BV1yG4y1Z7qM/?spm_id_from=333.999.0.0&vd_source=2d1a1996f721c2be8579fe3af09c7f00
+
+
+
 ##### 正视
 
 ![](RUCAR_F.jpg)
