@@ -70,40 +70,36 @@ void send_ps2_key_info()
 	uart_log_enter_char();
 }
 
-void delay_empty_order(uint n) //delay_empty_order(x)=(2.5+x)us;
-{
-	uint i;
-	for (i = 0; i < n; i++)
-	{
-		_nop_();
-	}	
-}
+// void delay_empty_order(uint n) //delay_empty_order(x)=(2.5+x)us;
+// {
+// 	uint i;
+// 	for (i = 0; i < n; i++)
+// 	{
+// 		_nop_();
+// 	}	
+// }
+
 
 uchar scan_input_from_ps2(uchar command)
 {
 	uchar i, j = 1;
 	uchar res = 0;
-	for (i = 0; i <= 7; i++) //receive by bit
+	for (i = 0; i <= 7; i++) //逐位接收
 	{
 		if (command & 0x01)
-		{
 			CMND = 1;
-		}			
 		else
-		{
 			CMND = 0;
-		}
 		command = command >> 1;
-		delay_empty_order(2);
+		_nop_();
+		_nop_();
 		CLK = 0;
-		delay_empty_order(10);
+		// delay_empty_order(3);
 		if (DATA)
-		{
 			res = res + j;
-		}
 		j = j << 1;
 		CLK = 1;
-		delay_empty_order(3);
+		// delay_empty_order(3);
 	}
 	CMND = 1;
 	return res;
