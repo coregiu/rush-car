@@ -11,6 +11,8 @@
 #ifndef COMMAND_DEFINE_H
 #define COMMAND_DEFINE_H
 
+#define _nop_() __asm NOP __endasm
+
 #define COMMANDS_LENGTH 12
 
 #include "log.h"
@@ -55,7 +57,8 @@ enum module
 {
     MODULE_MOTOR   = 0,
     MODULE_MUSIC   = 1,
-    MODULE_LED     = 2
+    MODULE_LED     = 2,
+    MODULE_SERVO   = 3
 };
 
 // CAR run state

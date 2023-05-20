@@ -112,44 +112,25 @@ void update_motor_state(uint car_cmd)
             // uart_log_string_data("e:1"); // send 1
             LED_LEFT_TOP = !LED_LEFT_TOP;
             exec_car_state_update(MOVE);
-            g_car_status.is_need_stop_auto = 1;
             break;
         case COMMAND_LEFT_DOWN:
             // uart_log_string_data("e:2"); // send 2
             LED_LEFT_DOWN = !LED_LEFT_DOWN;
             exec_car_state_update(BACK);
-            g_car_status.is_need_stop_auto = 1;
             break;
         case COMMAND_LEFT_LEFT:
             // uart_log_string_data("e:3"); // send 3
             LED_LEFT_LEFT = !LED_LEFT_LEFT;
             exec_car_state_update(LEFT);
-            g_car_status.is_need_stop_auto = 1;
             break;
         case COMMAND_LEFT_RIGHT:
             // uart_log_string_data("e:4"); // send 4
             LED_LEFT_RIGHT = !LED_LEFT_RIGHT;
             exec_car_state_update(RIGHT);
-            g_car_status.is_need_stop_auto = 1;
-            break;
-        case COMMAND_LEFT_1:
-            // uart_log_string_data("e:9"); // send 9
-            LED_LEFT_TOP = !LED_LEFT_TOP;
-            exec_car_state_update(MOVE);
             break;
         case COMMAND_LEFT_2:
-            // uart_log_string_data("e:A"); // send A
+            // uart_log_string_data("e:4"); // send 4
             LED_LEFT_DOWN = !LED_LEFT_DOWN;
-            stop();
-            break;
-        case COMMAND_RIGHT_1:
-            // uart_log_string_data("e:B"); // send B
-            LED_LEFT_LEFT = !LED_LEFT_LEFT;
-            exec_car_state_update(BACK);
-            break;
-        case COMMAND_RIGHT_2:
-            // uart_log_string_data("e:C"); // send C
-            LED_LEFT_RIGHT = !LED_LEFT_RIGHT;
             stop();
             break;
         default:

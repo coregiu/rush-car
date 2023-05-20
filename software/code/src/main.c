@@ -16,7 +16,7 @@
 
 const struct car_config g_car_config = {DEFAULT_CAR_RUN_DELAY_TIMES, READ_PS2_INTVAL_TIME_MS_H, READ_PS2_INTVAL_TIME_MS_L};
 
-const uchar EXE_PERIODS = 5;
+const uchar EXE_PERIODS = 1;
 
 struct pt pt_cmd_receiver, pt_motor_inspector;
 struct car_status g_car_status = {STOP, 0, 0, 0};
@@ -69,10 +69,11 @@ void main()
 	init_uart();
 	init_modules();
 
+	uart_log_start_info();
+
 	PT_INIT(&pt_cmd_receiver);
 	PT_INIT(&pt_motor_inspector);
 
-	uart_log_start_info();
 	while (1)
 	{
 

@@ -19,6 +19,7 @@ void init_modules()
     motor_driver.init();
     led_group.init();
     music_switch.init();
+    servos_driver.init();
 }
 
 /**
@@ -41,6 +42,7 @@ int execute_commands(struct pt *pt, int **commands)
 
 		/* We then reset the other protothread's flag. */
 		g_car_status.is_has_command = 0;
+        g_car_status.is_need_stop_auto = 1;
 
 		/* And we loop. */
 	}
@@ -61,6 +63,7 @@ int inspect_motor(struct pt *pt)
 		PT_WAIT_UNTIL(pt, g_car_status.non_motor_cmd_times >= g_car_config.car_run_delay_times 
                           && g_car_status.is_need_stop_auto);
 		notify_all(MODULE_MOTOR, COMMAND_LEFT_2); // stop the car
+        notify_all(MODULE_SERVO, COMMAND_LEFT_2); // set servo to receive new command
 
 		/* We then reset the other protothread's flag. */
         g_car_status.non_motor_cmd_times = 0;
@@ -93,8 +96,13 @@ void notify_all(enum module car_module, uint car_cmd)
         g_car_status.non_motor_cmd_times++;
         music_switch.update_state(car_cmd);
         break;
+    case MODULE_SERVO:
+        g_car_status.non_motor_cmd_times++;
+        servos_driver.update_state(car_cmd);
+        break;
     
     default:
+        g_car_status.non_motor_cmd_times++;
         break;
     }
 }
