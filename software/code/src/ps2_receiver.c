@@ -125,11 +125,6 @@ void convert_commands(uint **commands)
 			g_car_status.is_has_command = 1;
 		}
 	}
-
-	if (!g_car_status.is_has_command)
-	{
-		g_car_status.non_motor_cmd_times++;
-	}
 }
 
 /********************************************************************

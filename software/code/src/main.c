@@ -18,8 +18,7 @@ const struct car_config g_car_config = {DEFAULT_CAR_RUN_DELAY_TIMES, READ_PS2_IN
 
 const uchar EXE_PERIODS = 1;
 
-struct pt pt_cmd_receiver, pt_motor_inspector;
-struct car_status g_car_status = {STOP, 0, 0, 0};
+struct car_status g_car_status = {STOP, 0, 0};
 
 // delay times for timer 0. 3 times for a execute period, equals 200ms.
 uchar delayTimes = 0;
@@ -71,9 +70,6 @@ void main()
 
 	uart_log_start_info();
 
-	PT_INIT(&pt_cmd_receiver);
-	PT_INIT(&pt_motor_inspector);
-
 	while (1)
 	{
 
@@ -100,8 +96,6 @@ void time_0_isr(void) __interrupt 1
 	uint commands[COMMANDS_LENGTH][2] = {{0}};
 	read_ps2(commands);
 	// executet the commands.
-	execute_commands(&pt_cmd_receiver, commands); 
-	// inspect motor status.
-	inspect_motor(&pt_motor_inspector);
+	execute_commands(commands); 
 	delayTimes = 0;
 }

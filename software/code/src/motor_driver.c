@@ -130,7 +130,7 @@ void update_motor_state(uint car_cmd)
             break;
         case COMMAND_LEFT_2:
             // uart_log_string_data("e:4"); // send 4
-            LED_LEFT_DOWN = !LED_LEFT_DOWN;
+            // LED_LEFT_DOWN = !LED_LEFT_DOWN;
             stop();
             break;
         default:

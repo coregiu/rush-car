@@ -18,7 +18,6 @@
 #include <motor_driver.h>
 #include <servos_driver.h>
 #include <command_receiver.h>
-#include "pt.h"
 
 /**
  * init uart and all receive modules
@@ -30,13 +29,7 @@ void init_modules();
  * execute commands;
  * 
  */
-int execute_commands(struct pt *pt, int **commands);
-
-/**
- * inspect motor status.
- * if no motor command after 10 interval(500ms), stop the car.
- */
-int inspect_motor(struct pt *pt);
+void execute_commands(int **commands);
 
 /**
  * notify modules to execute the commands.

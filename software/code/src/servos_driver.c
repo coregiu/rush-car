@@ -111,7 +111,7 @@ void update_servos_driver(uint car_cmd)
             break;
         case COMMAND_LEFT_2:
             // uart_log_string_data("e:4"); // send 4
-            LED_RIGHT_DOWN = !LED_RIGHT_DOWN;
+            // LED_RIGHT_DOWN = !LED_RIGHT_DOWN;
             current_command_status = IDLE;
             break;
         default:

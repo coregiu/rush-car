@@ -76,9 +76,6 @@ struct car_status
 	// check is need stop the car by the inspect_motor function.
 	uchar is_need_stop_auto;
 
-	// times of commands without motor.
-	uint non_motor_cmd_times;
-	
 	// if thereis a command.
 	uchar is_has_command;
 };
