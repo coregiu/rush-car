@@ -29,7 +29,7 @@ void init_modules();
  * execute commands;
  * 
  */
-void execute_commands(int **commands);
+void execute_commands(uint is_has_command, int **commands);
 
 /**
  * notify modules to execute the commands.

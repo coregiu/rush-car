@@ -78,16 +78,17 @@ const uchar CAR_STATE_LIST[5][6] = {{0, 0, 0, 0, 0, 0},  // init
                                     {0, 0, 0, 1, 1, 0},  // left
                                     {1, 1, 0, 0, 0, 0}}; // right
 
+enum car_run_state current_car_status = STOP;
 void stop()
 {
     LEFT_EN  = CAR_STATE_LIST[STOP][LEFT_EN_POSITION];
     RIGHT_EN = CAR_STATE_LIST[STOP][RIGHT_EN_POSITION];
-    g_car_status.current_car_status == STOP;
+    current_car_status = STOP;
 }
 
 void exec_car_state_update(enum car_run_state run_state)
 {
-    if (g_car_status.current_car_status != run_state)
+    if (current_car_status != run_state)
     {
         LEFT_EN  = CAR_STATE_LIST[run_state][LEFT_EN_POSITION];
         LEFT_MV  = CAR_STATE_LIST[run_state][LEFT_MV_POSITION];
@@ -95,7 +96,7 @@ void exec_car_state_update(enum car_run_state run_state)
         RIGHT_EN = CAR_STATE_LIST[run_state][RIGHT_EN_POSITION];
         RIGHT_MV = CAR_STATE_LIST[run_state][RIGHT_MV_POSITION];
         RIGHT_BK = CAR_STATE_LIST[run_state][RIGHT_BK_POSITION];
-        g_car_status.current_car_status == run_state;
+        current_car_status == run_state;
     }
 }
 

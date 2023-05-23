@@ -61,32 +61,9 @@ enum module
     MODULE_SERVO   = 3
 };
 
-// CAR run state
-enum car_run_state
-{
-    STOP = 0, MOVE = 1, BACK = 2, LEFT = 3, RIGHT = 4
-};
-
-// current global status of car.
-struct car_status
-{
-	// motor status of current car
-	enum car_run_state current_car_status;
-
-	// check is need stop the car by the inspect_motor function.
-	uchar is_need_stop_auto;
-
-	// if thereis a command.
-	uchar is_has_command;
-};
-
-extern struct car_status g_car_status;
-
 // the main configuration of car.
 struct car_config
 {
-	// 50ms per time. dafault 10 times, equals 0.5 second.
-	uchar car_run_delay_times;
   uchar interval_of_read_ps2_h;
   uchar interval_of_read_ps2_l;
 };

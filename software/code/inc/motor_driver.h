@@ -69,6 +69,12 @@
 #define   LEFT_BK    P2_4
 #define   LEFT_EN    P2_5
 
+// CAR run state
+enum car_run_state
+{
+    STOP = 0, MOVE = 1, BACK = 2, LEFT = 3, RIGHT = 4
+};
+
 extern const struct module_command_receiver motor_driver;
 
 #endif

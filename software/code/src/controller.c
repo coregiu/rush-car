@@ -27,9 +27,9 @@ void init_modules()
  * and notify modules to execute commands;
  * 
  */
-void execute_commands(int **commands)
+void execute_commands(uint is_has_command, int **commands)
 {
-    if (g_car_status.is_has_command)
+    if (is_has_command)
     {
         for (uchar i = 0; i < COMMANDS_LENGTH; i++)
         {

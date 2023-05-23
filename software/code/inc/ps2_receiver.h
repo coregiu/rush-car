@@ -39,6 +39,6 @@ out[6] 00——7F——FF 右摇杆从上到下
 #include <stdio.h>
 #include "command_receiver.h"
 
-void read_ps2(uint **commands);
+void read_ps2(uint *is_has_command, uint **commands);
 
 #endif
