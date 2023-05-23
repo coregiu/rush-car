@@ -17,6 +17,26 @@ music_switch： 音乐驱动模块，接收主控中音乐相关指令，可控�
 
 motor_driver： 电机驱动模块，接收主控中电机相关指令，控制底盘前进、后退、左转和右转。
 
+servos_driver：舵机控制模块，接收主控中舵机相关指令，控制舵机前后、左右移动以及复位。
+
+pca9685： 舵机驱动使能模块，通过IIC连接pca9685驱动，将servos_driver中的指令下到具体舵机上。
+
+
+## 编译烧录：
+
+第一步，编译：
+
+```shell
+$cd {work_path}/rucar/software/code
+$mkdir build
+$cd build
+$cmake ..
+$make
+$ls src
+```模块，接收主控中舵机相关指令，控制舵机前后、左右移动以及复位。
+
+pca9685： 舵机使能
+
 
 ## 编译烧录：
 

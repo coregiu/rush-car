@@ -9,7 +9,7 @@
 #### 小车底盘
 <img src="modules/car.jpg" style="zoom:70%;" />
 
-外购小车底盘带直流电机。
+外购小车底盘带直流电机。这种塑料板的不是很结实，可以换金属的，也很便宜。
 
 
 #### 控制模块
@@ -148,6 +148,11 @@
 <img src="modules/music_led.jpg" style="zoom:80%;" />
 
 
+#### 舵机及云台
+<img src="modules/servo.jpg" style="zoom:80%;" />
+舵机型号: SG90
+云台安装时一定要提前调整好舵机角度。
 
-
-
+#### 舵机驱动pca9685
+<img src="modules/pca9685.jpeg" />
+P1_0接舵机驱动SDA口，P1_1接舵机驱动的SCL口。
